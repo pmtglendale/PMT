@@ -2,51 +2,161 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>فريق الإعلام | مهام الفريق</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMT | مهام الفريق</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root { --primary-dark: #070e17; --secondary-dark: #121f30; --gold: #d4af37; --text-light: #e0e0e0; --white: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--primary-dark); color: var(--text-light); }
-        header { background-color: rgba(7, 14, 23, 0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-        .logo h1 { color: var(--gold); font-size: 24px; font-weight: 800; }
-        .logo span { font-size: 12px; color: var(--text-light); display: block; }
-        nav ul { list-style: none; display: flex; gap: 30px; align-items: center; }
-        nav ul li a { text-decoration: none; color: var(--white); font-weight: 600; font-size: 15px; }
-        nav ul li a:hover, nav ul li a.active { color: var(--gold); }
-        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark); padding: 8px 22px; border-radius: 4px; font-weight: 800; text-decoration: none; }
-        .page-content { min-height: 100vh; padding: 140px 50px 50px; text-align: center; }
-        .page-content h2 { color: var(--gold); font-size: 36px; margin-bottom: 40px; }
-        .tasks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .task-card { padding: 30px; background: var(--secondary-dark); border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.15); transition: transform 0.3s; }
-        .task-card:hover { transform: translateY(-5px); border-color: var(--gold); }
-        .task-icon { font-size: 40px; color: var(--gold); margin-bottom: 20px; }
-        .task-card h4 { color: var(--white); margin-bottom: 15px; font-size: 20px; }
-        footer { background-color: #04080d; padding: 20px 50px; text-align: center; font-size: 13px; }
+        :root { 
+            --bg-main: #030712; 
+            --bg-card: rgba(17, 24, 39, 0.7); 
+            --border-color: rgba(212, 175, 55, 0.25);
+            --gold: #f3d573; 
+            --gold-glow: #d4af37;
+            --cyan: #00f0ff; 
+            --cyan-glow: rgba(0, 240, 255, 0.4);
+            --text-main: #f3f4f6; 
+            --text-sub: #9ca3af;
+            --discord: #5865F2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; user-select: none; }
+        
+        body { 
+            background-color: var(--bg-main); color: var(--text-main); min-height: 100vh; overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.06) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        header {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 1280px;
+            background: rgba(10, 15, 26, 0.75); backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;
+            padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+        }
+
+        .brand-logo { display: flex; align-items: center; gap: 12px; }
+        .brand-logo i { font-size: 24px; color: var(--gold); }
+        .brand-logo .title { font-weight: 900; font-size: 20px; color: #fff; }
+        .brand-logo .sub { font-size: 10px; color: var(--cyan); display: block; font-weight: 700; }
+
+        nav ul { display: flex; list-style: none; gap: 8px; align-items: center; }
+        .nav-link { color: var(--text-sub); text-decoration: none; padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 700; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .nav-link:hover, .nav-link.active { color: #fff; background: rgba(255, 255, 255, 0.05); }
+        .nav-link.active { border-bottom: 2px solid var(--gold); }
+
+        #admin-tab { background: rgba(0, 240, 255, 0.1); color: var(--cyan); border: 1px solid var(--cyan-glow); display: none; }
+        .btn-neon-gold { background: linear-gradient(135deg, var(--gold-glow), var(--gold)); color: #000; font-weight: 800; padding: 8px 20px; border-radius: 10px; text-decoration: none; }
+        .btn-discord { background: var(--discord); color: #fff; border: none; padding: 9px 18px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        
+        .user-pill { display: none; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); padding: 5px 14px; border-radius: 30px; }
+        .user-pill img { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--gold); }
+        .user-pill span { font-size: 13px; font-weight: 800; color: #fff; }
+        .btn-logout { background: none; border: none; color: #ff5555; cursor: pointer; }
+
+        .page-container { padding-top: 160px; padding-bottom: 80px; max-width: 1200px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h1 { font-size: 42px; font-weight: 900; color: #fff; }
+        .section-header h1 span { background: linear-gradient(135deg, var(--gold), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .tasks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .task-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; backdrop-filter: blur(12px); }
+        .task-card .tag { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 800; margin-bottom: 15px; }
+        .tag-high { background: rgba(255, 85, 85, 0.15); color: #ff5555; border: 1px solid #ff5555; }
+        .tag-medium { background: rgba(212, 175, 55, 0.15); color: var(--gold); border: 1px solid var(--gold); }
+        .tag-low { background: rgba(0, 240, 255, 0.15); color: var(--cyan); border: 1px solid var(--cyan); }
+        
+        .task-card h3 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+        .task-card p { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
     </style>
 </head>
 <body>
+
     <header>
-        <div class="logo"><h1>PMT</h1><span>فريق الإعلام | LSPD</span></div>
+        <div class="brand-logo">
+            <i class="fa-solid fa-crown"></i>
+            <div>
+                <span class="title">PMT SYSTEM</span>
+                <span class="sub">MEDIA TEAM PLATFORM</span>
+            </div>
+        </div>
         <nav>
             <ul>
-                <li><a href="index.html">الصفحة الرئيسية</a></li>
-                <li><a href="about.html">من نحن</a></li>
-                <li><a href="tasks.html" class="active">مهام الفريق</a></li>
-                <li><a href="apply.html" class="btn-gold">التقديم</a></li>
+                <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
+                <li><a href="about.html" class="nav-link"><i class="fa-solid fa-users"></i> من نحن</a></li>
+                <li><a href="tasks.html" class="nav-link active"><i class="fa-solid fa-list-check"></i> المهام</a></li>
+                <li><a href="apply.html" class="btn-neon-gold">التقديم</a></li>
+                <li><a href="admin.html" id="admin-tab" class="nav-link"><i class="fa-solid fa-lock"></i> لوحة الإدارة</a></li>
+
+                <li id="auth-box">
+                    <button id="login-btn" class="btn-discord" onclick="loginWithDiscord()"><i class="fa-brands fa-discord"></i> تسجيل الدخول</button>
+                    <div id="user-pill" class="user-pill">
+                        <img id="user-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
+                        <span id="user-name"></span>
+                        <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-power-off"></i></button>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
-    <div class="page-content">
-        <h2>مهام الفريق</h2>
+
+    <div class="page-container">
+        <div class="section-header">
+            <h1>جدول <span>مهام الفريق الرسمية</span></h1>
+            <p>قائمة المهام والتكليفات الميدانية الجارية والمطلوبة من الإعلاميين.</p>
+        </div>
+
         <div class="tasks-grid">
-            <div class="task-card"><i class="fas fa-camera task-icon"></i><h4>التوثيق الميداني</h4><p>تصوير وتوثيق العمليات والمداهمات والأحداث الميدانية لحظة بلحظة.</p></div>
-            <div class="task-card"><i class="fas fa-film task-icon"></i><h4>إنتاج المحتوى</h4><p>صناعة وتعديل الأفلام التوعوية والمقاطع التوجيهية وتغطيات التدريب.</p></div>
-            <div class="task-card"><i class="fas fa-plane task-icon"></i><h4>التغطية الجوية</h4><p>استخدام الطائرات الموجهة (الدرون) لالتقاط مشاهد جوية تكتيكية شاملة.</p></div>
-            <div class="task-card"><i class="fas fa-microphone-alt task-icon"></i><h4>البث والعلاقات العامة</h4><p>إدارة المؤتمرات الصحفية وتنظيم التصريحات الإعلامية للجمهور.</p></div>
+            <div class="task-card">
+                <span class="tag tag-high">عالية الأولوية</span>
+                <h3>تغطية الفعالية الكبرى</h3>
+                <p>تجهيز الكاميرات والتواجد في الموقع الميداني لالتقاط المشاهد وتغطية بث الأحداث المباشرة.</p>
+            </div>
+            <div class="task-card">
+                <span class="tag tag-medium">متوسطة الأولوية</span>
+                <h3>التوثيق والأرشيف اليومي</h3>
+                <p>جمع وتصنيف الصور والمقاطع وتخزينها في قاعدة البيانات السحابية لسهولة الوصول إليها.</p>
+            </div>
+            <div class="task-card">
+                <span class="tag tag-low">روتينية</span>
+                <h3>مراجعة جودة المونتاج</h3>
+                <p>تدقيق المقاطع الجاهزة للتأكد من المونتاج المؤثر والتصاميم قبل النشر في المنصات.</p>
+            </div>
         </div>
     </div>
-    <footer><p>&copy; 2026 جميع الحقوق محفوظة لـ فريق الإعلام - PMT.</p></footer>
+
+    <script>
+        const ADMIN_USERS = ['yx8q'];
+        window.onload = checkSession;
+
+        function checkSession() {
+            const saved = localStorage.getItem('discord_user');
+            if (saved) {
+                const user = JSON.parse(saved);
+                document.getElementById('login-btn').style.display = 'none';
+                const pill = document.getElementById('user-pill');
+                pill.style.display = 'flex';
+                document.getElementById('user-avatar').src = user.avatar;
+                document.getElementById('user-name').innerText = user.name;
+
+                const adminTab = document.getElementById('admin-tab');
+                if (adminTab && ADMIN_USERS.includes(user.name.toLowerCase())) {
+                    adminTab.style.display = 'flex';
+                }
+            }
+        }
+        function loginWithDiscord() {
+            const username = prompt("أدخل اسم حسابك في ديسكورد:", "yx8q");
+            if (username && username.trim() !== "") {
+                localStorage.setItem('discord_user', JSON.stringify({ name: username.trim(), avatar: 'https://cdn.discordapp.com/embed/avatars/0.png' }));
+                checkSession();
+            }
+        }
+        function logout() { localStorage.removeItem('discord_user'); location.reload(); }
+    </script>
 </body>
 </html>
