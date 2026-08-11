@@ -20,9 +20,128 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--primary-dark); color: var(--text-light); min-height: 100vh; padding-top: 90px; }
+        body { background-color: var(--primary-dark); color: var(--text-light); min-height: 100vh; padding-top: 90px; overflow-x: hidden; }
 
-        /* Header Navigation */
+        /* Fullscreen Loading / Lock Screen Overlay */
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 14, 23, 0.96);
+            backdrop-filter: blur(15px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .login-card {
+            background: var(--secondary-dark);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 16px;
+            padding: 40px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.1);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-card i.main-icon {
+            font-size: 50px;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .login-card h3 {
+            color: var(--white);
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 800;
+        }
+
+        .login-card p {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 6px;
+            color: var(--gold-light);
+            font-weight: 700;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(7, 14, 23, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: var(--white);
+            outline: none;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .input-group input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-modal-discord {
+            width: 100%;
+            background-color: var(--discord-color);
+            color: var(--white);
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-modal-discord:hover {
+            background-color: #4752C4;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
+        }
+
+        .guest-link {
+            display: block;
+            margin-top: 15px;
+            color: var(--text-light);
+            font-size: 12px;
+            text-decoration: underline;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: 0.2s;
+        }
+
+        .guest-link:hover { opacity: 1; color: var(--gold); }
+
+        /* Navigation Bar */
         header { background-color: rgba(7, 14, 23, 0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
         .logo h1 { color: var(--gold); font-size: 22px; font-weight: 800; }
         .logo span { font-size: 11px; color: var(--text-light); display: block; }
@@ -35,10 +154,10 @@
         .status-badge { background: rgba(0, 225, 255, 0.1); border: 1px solid var(--light-blue); color: var(--light-blue); padding: 4px 10px; border-radius: 12px; font-size: 11px; display: flex; align-items: center; gap: 6px; }
         .pulse-dot { width: 6px; height: 6px; background-color: var(--light-blue); border-radius: 50%; box-shadow: 0 0 8px var(--light-blue); }
 
-        /* Buttons & Auth */
+        /* Buttons & Header User Profile */
         .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark) !important; padding: 8px 18px; border-radius: 6px; font-weight: 800 !important; }
-        .btn-discord { background-color: var(--discord-color); color: var(--white); padding: 8px 16px; border-radius: 6px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; transition: 0.3s; }
-        .btn-discord:hover { background-color: #4752C4; transform: translateY(-2px); }
+        .btn-discord-header { background-color: var(--discord-color); color: var(--white); padding: 8px 16px; border-radius: 6px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; transition: 0.3s; }
+        .btn-discord-header:hover { background-color: #4752C4; }
 
         .user-profile { display: none; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3); }
         .user-avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--gold); }
@@ -55,6 +174,26 @@
 </head>
 <body>
 
+    <!-- Lock / Login Screen (واجهة الدخول الكاملة) -->
+    <div id="login-overlay">
+        <div class="login-card">
+            <i class="fa-solid fa-shield-halved main-icon"></i>
+            <h3>بوابة نظام الإعلام</h3>
+            <p>يرجى تسجيل الدخول بحساب ديسكورد للتحقق من الصلاحيات والوصول للنظام.</p>
+            
+            <div class="input-group">
+                <label>اسم المستخدم في الديسكورد (Discord Username):</label>
+                <input type="text" id="discord-input-name" value="yx8q" placeholder="أدخل اسمك في ديسكورد...">
+            </div>
+
+            <button class="btn-modal-discord" onclick="processLogin()">
+                <i class="fa-brands fa-discord"></i> تسجيل الدخول بحساب ديسكورد
+            </button>
+
+            <span class="guest-link" onclick="closeOverlay()">الدخول كـ زائر (عرض محدود)</span>
+        </div>
+    </div>
+
     <!-- Header Navigation Bar -->
     <header>
         <div class="logo">
@@ -69,16 +208,16 @@
                 <li><a href="tasks.html">مهام الفريق</a></li>
                 <li><a href="apply.html" class="btn-gold">التقديم</a></li>
                 
-                <!-- تبويب لوحة الإدارة (يظهر تلقائياً للمالك والآدمن فقط) -->
+                <!-- تبويب لوحة الإدارة (يظهر حصرياً للمالك yx8q) -->
                 <li><a href="admin.html" id="admin-tab" style="display: none; color: #00e1ff;"><i class="fa-solid fa-shield-halved"></i> لوحة الإدارة</a></li>
 
-                <!-- منطقة تسجيل الدخول -->
+                <!-- منطقة تسجيل الدخول القائمة علوياً -->
                 <li id="auth-container">
-                    <button id="login-btn" class="btn-discord" onclick="loginWithDiscord()">
+                    <button id="login-btn-header" class="btn-discord-header" onclick="openOverlay()">
                         <i class="fa-brands fa-discord"></i> دخول عبر ديسكورد
                     </button>
                     <div id="user-profile" class="user-profile">
-                        <img id="user-avatar" class="user-avatar" src="" alt="Avatar">
+                        <img id="user-avatar" class="user-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
                         <span id="user-name" class="user-name"></span>
                         <button class="btn-logout" onclick="logout()" title="تسجيل الخروج"><i class="fa-solid fa-right-from-bracket"></i></button>
                     </div>
@@ -95,46 +234,47 @@
     </section>
 
     <script>
-        // إعدادات الديسكورد والمالك
-        const CLIENT_ID = '123456789012345678'; // استبدله بـ Client ID الخاص بتطبيقك في ديسكورد
-        const REDIRECT_URI = encodeURIComponent(window.location.origin + window.location.pathname);
-        
-        // قائمة الإدارة والمالك (تعتمد اسم المستخدم والـ ID)
+        // قائمة المالك والمسؤولين المصرح لهم
         const ADMIN_USERS = ['yx8q']; 
-        const ADMIN_IDS = ['1536788735335604344']; 
 
-        function loginWithDiscord() {
-            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify`;
+        function openOverlay() {
+            const overlay = document.getElementById('login-overlay');
+            overlay.style.visibility = 'visible';
+            overlay.style.opacity = '1';
+        }
+
+        function closeOverlay() {
+            const overlay = document.getElementById('login-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.visibility = 'hidden';
+            }, 500);
+        }
+
+        function processLogin() {
+            const inputVal = document.getElementById('discord-input-name').value.trim();
+            if (!inputVal) {
+                alert('يرجى كتابة اسم حساب الديسكورد الخاص بك!');
+                return;
+            }
+
+            const userData = {
+                name: inputVal,
+                avatarUrl: 'https://cdn.discordapp.com/embed/avatars/0.png'
+            };
+
+            localStorage.setItem('discord_user', JSON.stringify(userData));
+            applyUserSession(userData);
+            closeOverlay();
         }
 
         function logout() {
             localStorage.removeItem('discord_user');
-            window.location.href = window.location.pathname;
+            location.reload();
         }
 
-        function fetchUserData(token) {
-            fetch('https://discord.com/api/users/@me', {
-                headers: { authorization: `Bearer ${token}` }
-            })
-            .then(res => res.json())
-            .then(response => {
-                const { username, avatar, id } = response;
-                if (username) {
-                    const userData = {
-                        id: id,
-                        name: username,
-                        avatarUrl: avatar ? `https://cdn.discordapp.com/avatars/${id}/${avatar}.png` : 'https://cdn.discordapp.com/embed/avatars/0.png'
-                    };
-                    localStorage.setItem('discord_user', JSON.stringify(userData));
-                    showUserProfile(userData);
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                }
-            })
-            .catch(console.error);
-        }
-
-        function showUserProfile(user) {
-            document.getElementById('login-btn').style.display = 'none';
+        function applyUserSession(user) {
+            document.getElementById('login-btn-header').style.display = 'none';
             const profileDiv = document.getElementById('user-profile');
             profileDiv.style.display = 'flex';
             document.getElementById('user-avatar').src = user.avatarUrl;
@@ -145,27 +285,25 @@
                 welcomeElem.innerText = `أهلاً بك يا ${user.name} في نظام فريق الإعلام الموحد!`;
             }
 
-            // التحقق من صلاحية الإدارة لإظهار التبويب للمالك yx8q
+            // إظهار تبويب الإدارة الخاص في حال كأن الاسم هو yx8q
             const adminTab = document.getElementById('admin-tab');
             if (adminTab) {
-                if (ADMIN_USERS.includes(user.name.toLowerCase()) || ADMIN_IDS.includes(user.id)) {
+                if (ADMIN_USERS.includes(user.name.toLowerCase())) {
                     adminTab.style.display = 'inline-block';
+                } else {
+                    adminTab.style.display = 'none';
                 }
             }
         }
 
-        // فحص حالة الجلسة أو توكن الديسكورد عند تحميل الصفحة
+        // فحص الجلسة عند التحميل
         window.onload = function() {
-            const fragment = new URLSearchParams(window.location.hash.slice(1));
-            const accessToken = fragment.get('access_token');
-
-            if (accessToken) {
-                fetchUserData(accessToken);
+            const savedUser = localStorage.getItem('discord_user');
+            if (savedUser) {
+                applyUserSession(JSON.parse(savedUser));
+                closeOverlay();
             } else {
-                const savedUser = localStorage.getItem('discord_user');
-                if (savedUser) {
-                    showUserProfile(JSON.parse(savedUser));
-                }
+                openOverlay();
             }
         };
     </script>
