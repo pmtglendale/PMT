@@ -22,146 +22,99 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body { background-color: var(--primary-dark); color: var(--text-light); min-height: 100vh; padding-top: 90px; overflow-x: hidden; }
 
-        /* Fullscreen Loading & Lock Screen */
-        #loading-screen {
+        /* Real Pure Loading Screen (شاشة تحميل كاملة للموقع) */
+        #splash-loading {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-dark);
-            z-index: 9999;
+            width: 100vw;
+            height: 100vh;
+            background: #04080e;
+            z-index: 99999;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        .loader-card {
-            background: var(--secondary-dark);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 16px;
-            padding: 40px;
-            width: 90%;
-            max-width: 440px;
+        .splash-content {
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(212, 175, 55, 0.15);
-            position: relative;
-            overflow: hidden;
+            max-width: 400px;
+            width: 85%;
         }
 
-        .loader-card i.main-icon {
-            font-size: 55px;
+        .splash-logo {
+            font-size: 65px;
             color: var(--gold);
-            margin-bottom: 15px;
-            animation: pulseGlow 2s infinite ease-in-out;
+            margin-bottom: 20px;
+            animation: pulseLogo 1.5s infinite ease-in-out;
         }
 
-        @keyframes pulseGlow {
-            0% { transform: scale(1); filter: drop-shadow(0 0 2px var(--gold)); }
-            50% { transform: scale(1.08); filter: drop-shadow(0 0 12px var(--gold)); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--gold)); }
+        @keyframes pulseLogo {
+            0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4)); }
         }
 
-        .loader-card h3 {
+        .splash-title {
             color: var(--white);
-            font-size: 22px;
-            margin-bottom: 8px;
+            font-size: 26px;
             font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
-        .loader-card p {
+        .splash-subtitle {
+            color: var(--gold-light);
             font-size: 13px;
             opacity: 0.8;
-            margin-bottom: 25px;
-            line-height: 1.6;
+            margin-bottom: 35px;
         }
 
-        /* Progress Bar Animation */
-        .progress-bar-container {
+        /* Loading Spinner & Progress */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(212, 175, 55, 0.15);
+            border-top: 4px solid var(--gold);
+            border-right: 4px solid var(--light-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 25px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-bar-bg {
             width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 20px;
-            display: none;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
         }
 
-        .progress-bar-fill {
-            height: 100%;
+        .loading-bar-fill {
             width: 0%;
+            height: 100%;
             background: linear-gradient(90deg, var(--gold), var(--light-blue));
-            border-radius: 10px;
-            transition: width 0.3s ease;
+            border-radius: 20px;
+            transition: width 0.1s linear;
         }
 
-        .input-group {
-            margin-bottom: 20px;
-            text-align: right;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 12px;
-            margin-bottom: 6px;
-            color: var(--gold-light);
-            font-weight: 700;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(7, 14, 23, 0.8);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            color: var(--white);
-            outline: none;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .input-group input:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
-        }
-
-        .btn-modal-discord {
-            width: 100%;
-            background-color: var(--discord-color);
-            color: var(--white);
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
+        .loading-status {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
-        }
-
-        .btn-modal-discord:hover {
-            background-color: #4752C4;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.4);
-        }
-
-        .guest-link {
-            display: block;
-            margin-top: 15px;
-            color: var(--text-light);
+            justify-content: space-between;
+            margin-top: 10px;
             font-size: 12px;
-            text-decoration: underline;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: 0.2s;
+            color: var(--text-light);
+            font-weight: 600;
         }
-
-        .guest-link:hover { opacity: 1; color: var(--gold); }
 
         /* Navigation Bar */
         header { background-color: rgba(7, 14, 23, 0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
@@ -172,11 +125,9 @@
         nav a { color: var(--text-light); text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; }
         nav a:hover, nav a.active { color: var(--gold); }
         
-        /* Status Badge */
         .status-badge { background: rgba(0, 225, 255, 0.1); border: 1px solid var(--light-blue); color: var(--light-blue); padding: 4px 10px; border-radius: 12px; font-size: 11px; display: flex; align-items: center; gap: 6px; }
         .pulse-dot { width: 6px; height: 6px; background-color: var(--light-blue); border-radius: 50%; box-shadow: 0 0 8px var(--light-blue); }
 
-        /* Buttons & Header User Profile */
         .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark) !important; padding: 8px 18px; border-radius: 6px; font-weight: 800 !important; }
         .btn-discord-header { background-color: var(--discord-color); color: var(--white); padding: 8px 16px; border-radius: 6px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; transition: 0.3s; }
         .btn-discord-header:hover { background-color: #4752C4; }
@@ -196,28 +147,22 @@
 </head>
 <body>
 
-    <!-- Fullscreen Loading & Lock Screen (شاشة التحميل والتحقق) -->
-    <div id="loading-screen">
-        <div class="loader-card">
-            <i class="fa-solid fa-shield-halved main-icon"></i>
-            <h3 id="loader-title">بوابة نظام الإعلام الموحد</h3>
-            <p id="loader-desc">جاري التحقق من الصلاحيات وتجهيز ملفات النظام...</p>
+    <!-- REAL LOADING SCREEN (شاشة التحميل الرئيسية) -->
+    <div id="splash-loading">
+        <div class="splash-content">
+            <i class="fa-solid fa-shield-halved splash-logo"></i>
+            <div class="splash-title">PMT SYSTEM</div>
+            <div class="splash-subtitle">نظام إدارة فريق الإعلام الموحد</div>
 
-            <div class="progress-bar-container" id="progress-container">
-                <div class="progress-bar-fill" id="progress-fill"></div>
+            <div class="spinner"></div>
+
+            <div class="loading-bar-bg">
+                <div class="loading-bar-fill" id="splash-bar"></div>
             </div>
-            
-            <div id="auth-form-box">
-                <div class="input-group">
-                    <label>اسم المستخدم في الديسكورد (Discord Username):</label>
-                    <input type="text" id="discord-input-name" value="yx8q" placeholder="أدخل اسمك في ديسكورد...">
-                </div>
 
-                <button class="btn-modal-discord" onclick="startLoadingProcess()">
-                    <i class="fa-brands fa-discord"></i> تسجيل الدخول والتحقق
-                </button>
-
-                <span class="guest-link" onclick="hideLoadingScreen()">الدخول كـ زائر (عرض محدود)</span>
+            <div class="loading-status">
+                <span id="splash-text">جاري إعداد واجهة النظام...</span>
+                <span id="splash-percent">0%</span>
             </div>
         </div>
     </div>
@@ -236,12 +181,11 @@
                 <li><a href="tasks.html">مهام الفريق</a></li>
                 <li><a href="apply.html" class="btn-gold">التقديم</a></li>
                 
-                <!-- تبويب لوحة الإدارة (حصري لحساب المالك yx8q) -->
+                <!-- تبويب لوحة الإدارة (يظهر حصرياً للمالك yx8q) -->
                 <li><a href="admin.html" id="admin-tab" style="display: none; color: #00e1ff;"><i class="fa-solid fa-shield-halved"></i> لوحة الإدارة</a></li>
 
-                <!-- منطقة الحساب أعلى القائمة -->
                 <li id="auth-container">
-                    <button id="login-btn-header" class="btn-discord-header" onclick="showLoadingScreen(true)">
+                    <button id="login-btn-header" class="btn-discord-header" onclick="loginDiscord()">
                         <i class="fa-brands fa-discord"></i> دخول عبر ديسكورد
                     </button>
                     <div id="user-profile" class="user-profile">
@@ -254,7 +198,7 @@
         </nav>
     </header>
 
-    <!-- Hero Content Section -->
+    <!-- Hero Section -->
     <section class="hero">
         <div id="welcome-msg" class="welcome-box">أهلاً بك في البوابة الرسمية لفريق الإعلام</div>
         <h2>المنصة الإعلامية <span>الموحدة</span></h2>
@@ -262,66 +206,62 @@
     </section>
 
     <script>
-        const ADMIN_USERS = ['yx8q']; 
+        const ADMIN_USERS = ['yx8q'];
 
-        function showLoadingScreen(manualClick = false) {
-            const loader = document.getElementById('loading-screen');
-            loader.style.visibility = 'visible';
-            loader.style.opacity = '1';
-            
-            if (manualClick) {
-                document.getElementById('auth-form-box').style.display = 'block';
-                document.getElementById('progress-container').style.display = 'none';
-                document.getElementById('loader-title').innerText = 'تسجيل الدخول للنظام';
-                document.getElementById('loader-desc').innerText = 'يرجى كتابة اسم حساب الديسكورد للتسجيل.';
-            }
-        }
+        // محاكاة شاشة التحميل عند فتح الموقع
+        window.addEventListener('DOMContentLoaded', () => {
+            const bar = document.getElementById('splash-bar');
+            const percent = document.getElementById('splash-percent');
+            const text = document.getElementById('splash-text');
+            const splash = document.getElementById('splash-loading');
 
-        function hideLoadingScreen() {
-            const loader = document.getElementById('loading-screen');
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                loader.style.visibility = 'hidden';
-            }, 600);
-        }
+            let progress = 0;
+            const messages = [
+                "جاري الاتصال بالسيرفر...",
+                "التحقق من صلاحيات الحساب...",
+                "تحميل القوائم ولوحة التحكم...",
+                "اكتمل التحميل!"
+            ];
 
-        function startLoadingProcess() {
-            const inputName = document.getElementById('discord-input-name').value.trim();
-            if (!inputName) {
-                alert('يرجى إدخال اسم مستخدم الديسكورد!');
-                return;
-            }
-
-            // إخفاء النموذج وإظهار شريط اللودنق
-            document.getElementById('auth-form-box').style.display = 'none';
-            document.getElementById('progress-container').style.display = 'block';
-            document.getElementById('loader-title').innerText = 'جاري مزامنة الصلاحيات...';
-            document.getElementById('loader-desc').innerText = `مرحباً ${inputName}، جاري التحقق من قاعدة بيانات المالك والمسؤولين...`;
-
-            const fill = document.getElementById('progress-fill');
-            let width = 0;
-            
             const interval = setInterval(() => {
-                if (width >= 100) {
+                progress += Math.floor(Math.random() * 12) + 5;
+                
+                if (progress > 100) progress = 100;
+
+                bar.style.width = progress + '%';
+                percent.innerText = progress + '%';
+
+                if (progress < 30) text.innerText = messages[0];
+                else if (progress < 65) text.innerText = messages[1];
+                else if (progress < 90) text.innerText = messages[2];
+                else text.innerText = messages[3];
+
+                if (progress >= 100) {
                     clearInterval(interval);
                     
-                    const userData = {
-                        name: inputName,
-                        avatarUrl: 'https://cdn.discordapp.com/embed/avatars/0.png'
-                    };
+                    // فحص جلسة المستخدم عند نهاية التحميل
+                    checkUserSession();
 
-                    localStorage.setItem('discord_user', JSON.stringify(userData));
-                    applyUserSession(userData);
-                    
                     setTimeout(() => {
-                        hideLoadingScreen();
+                        splash.style.opacity = '0';
+                        setTimeout(() => {
+                            splash.style.visibility = 'hidden';
+                        }, 800);
                     }, 400);
-
-                } else {
-                    width += 10;
-                    fill.style.width = width + '%';
                 }
-            }, 120);
+            }, 100);
+        });
+
+        function loginDiscord() {
+            const username = prompt("أدخل اسم حسابك في ديسكورد لتسجيل الدخول:", "yx8q");
+            if (username && username.trim() !== "") {
+                const userData = {
+                    name: username.trim(),
+                    avatarUrl: 'https://cdn.discordapp.com/embed/avatars/0.png'
+                };
+                localStorage.setItem('discord_user', JSON.stringify(userData));
+                checkUserSession();
+            }
         }
 
         function logout() {
@@ -329,57 +269,32 @@
             location.reload();
         }
 
-        function applyUserSession(user) {
-            document.getElementById('login-btn-header').style.display = 'none';
-            const profileDiv = document.getElementById('user-profile');
-            profileDiv.style.display = 'flex';
-            document.getElementById('user-avatar').src = user.avatarUrl;
-            document.getElementById('user-name').innerText = user.name;
-            
-            const welcomeElem = document.getElementById('welcome-msg');
-            if (welcomeElem) {
-                welcomeElem.innerText = `أهلاً بك يا ${user.name} في نظام فريق الإعلام الموحد!`;
-            }
-
-            // تفعيل تبويب الإدارة لحساب yx8q
-            const adminTab = document.getElementById('admin-tab');
-            if (adminTab) {
-                if (ADMIN_USERS.includes(user.name.toLowerCase())) {
-                    adminTab.style.display = 'inline-block';
-                } else {
-                    adminTab.style.display = 'none';
-                }
-            }
-        }
-
-        // عند فتح الصفحة
-        window.onload = function() {
+        function checkUserSession() {
             const savedUser = localStorage.getItem('discord_user');
             if (savedUser) {
                 const user = JSON.parse(savedUser);
-                applyUserSession(user);
-                
-                // شاشة تحميل سريعة للجلسة المحفوظة
-                document.getElementById('auth-form-box').style.display = 'none';
-                document.getElementById('progress-container').style.display = 'block';
-                document.getElementById('loader-title').innerText = 'جاري استعادة الجلسة...';
-                document.getElementById('loader-desc').innerText = `أهلاً بعودتك يا ${user.name}!`;
+                document.getElementById('login-btn-header').style.display = 'none';
+                const profileDiv = document.getElementById('user-profile');
+                profileDiv.style.display = 'flex';
+                document.getElementById('user-avatar').src = user.avatarUrl;
+                document.getElementById('user-name').innerText = user.name;
 
-                let w = 0;
-                const f = document.getElementById('progress-fill');
-                const timer = setInterval(() => {
-                    w += 25;
-                    f.style.width = w + '%';
-                    if (w >= 100) {
-                        clearInterval(timer);
-                        setTimeout(hideLoadingScreen, 300);
+                const welcomeElem = document.getElementById('welcome-msg');
+                if (welcomeElem) {
+                    welcomeElem.innerText = `أهلاً بك يا ${user.name} في نظام فريق الإعلام الموحد!`;
+                }
+
+                // إظهار تبويب لوحة الإدارة فقط لحساب yx8q
+                const adminTab = document.getElementById('admin-tab');
+                if (adminTab) {
+                    if (ADMIN_USERS.includes(user.name.toLowerCase())) {
+                        adminTab.style.display = 'inline-block';
+                    } else {
+                        adminTab.style.display = 'none';
                     }
-                }, 80);
-
-            } else {
-                showLoadingScreen(true);
+                }
             }
-        };
+        }
     </script>
 </body>
 </html>
