@@ -3,195 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فريق الإعلام | الصفحة الرئيسية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>PMT | المنصة الإعلامية المتقدمة</title>
+    <!-- خط الجوهرة Cairo مع أيقونات FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root { 
-            --primary-dark: #070e17; 
-            --secondary-dark: #121f30; 
-            --gold: #d4af37; 
-            --gold-light: #f3d573;
-            --light-blue: #00e1ff; 
-            --text-light: #e0e0e0; 
-            --white: #ffffff; 
-            --discord-color: #5865F2;
+            --bg-main: #030712; 
+            --bg-card: rgba(17, 24, 39, 0.7); 
+            --border-color: rgba(212, 175, 55, 0.25);
+            --gold: #f3d573; 
+            --gold-glow: #d4af37;
+            --cyan: #00f0ff; 
+            --cyan-glow: rgba(0, 240, 255, 0.4);
+            --text-main: #f3f4f6; 
+            --text-sub: #9ca3af;
+            --discord: #5865F2;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--primary-dark); color: var(--text-light); min-height: 100vh; padding-top: 90px; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; user-select: none; }
+        
+        body { 
+            background-color: var(--bg-main); 
+            color: var(--text-main); 
+            min-height: 100vh; 
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.06) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
 
-        /* Real Pure Loading Screen (شاشة تحميل كاملة للموقع) */
-        #splash-loading {
+        /* --- Real Cyber Splash Screen --- */
+        #splash-screen {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #04080e;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #02040a;
             z-index: 99999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
         }
 
-        .splash-content {
-            text-align: center;
-            max-width: 400px;
-            width: 85%;
-        }
-
-        .splash-logo {
-            font-size: 65px;
-            color: var(--gold);
-            margin-bottom: 20px;
-            animation: pulseLogo 1.5s infinite ease-in-out;
-        }
-
-        @keyframes pulseLogo {
-            0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4)); }
-            50% { transform: scale(1.1); filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.8)); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4)); }
-        }
-
-        .splash-title {
-            color: var(--white);
-            font-size: 26px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .splash-subtitle {
-            color: var(--gold-light);
-            font-size: 13px;
-            opacity: 0.8;
-            margin-bottom: 35px;
-        }
-
-        /* Loading Spinner & Progress */
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(212, 175, 55, 0.15);
-            border-top: 4px solid var(--gold);
-            border-right: 4px solid var(--light-blue);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 25px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-bar-bg {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+        .splash-box {
             position: relative;
+            text-align: center;
+            padding: 40px;
+            background: rgba(10, 16, 26, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9), 0 0 30px rgba(212, 175, 55, 0.1);
+            max-width: 420px;
+            width: 90%;
         }
 
-        .loading-bar-fill {
+        .splash-icon {
+            font-size: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.6)); }
+        }
+
+        .splash-title { font-size: 28px; font-weight: 900; letter-spacing: 1px; color: #fff; }
+        .splash-subtitle { font-size: 13px; color: var(--text-sub); margin-bottom: 30px; }
+
+        .progress-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .progress-fill {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, var(--gold), var(--light-blue));
-            border-radius: 20px;
+            background: linear-gradient(90deg, var(--gold-glow), var(--cyan));
+            box-shadow: 0 0 12px var(--cyan);
             transition: width 0.1s linear;
         }
 
-        .loading-status {
+        .status-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--text-sub); }
+
+        /* --- Header / Glass Navigation --- */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1280px;
+            background: rgba(10, 15, 26, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 12px 30px;
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
-            font-size: 12px;
-            color: var(--text-light);
-            font-weight: 600;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        /* Navigation Bar */
-        header { background-color: rgba(7, 14, 23, 0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
-        .logo h1 { color: var(--gold); font-size: 22px; font-weight: 800; }
-        .logo span { font-size: 11px; color: var(--text-light); display: block; }
-        
-        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
-        nav a { color: var(--text-light); text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; }
-        nav a:hover, nav a.active { color: var(--gold); }
-        
-        .status-badge { background: rgba(0, 225, 255, 0.1); border: 1px solid var(--light-blue); color: var(--light-blue); padding: 4px 10px; border-radius: 12px; font-size: 11px; display: flex; align-items: center; gap: 6px; }
-        .pulse-dot { width: 6px; height: 6px; background-color: var(--light-blue); border-radius: 50%; box-shadow: 0 0 8px var(--light-blue); }
+        .brand-logo { display: flex; align-items: center; gap: 12px; }
+        .brand-logo i { font-size: 24px; color: var(--gold); }
+        .brand-logo .title { font-weight: 900; font-size: 20px; color: #fff; letter-spacing: 0.5px; }
+        .brand-logo .sub { font-size: 10px; color: var(--cyan); display: block; font-weight: 700; }
 
-        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark) !important; padding: 8px 18px; border-radius: 6px; font-weight: 800 !important; }
-        .btn-discord-header { background-color: var(--discord-color); color: var(--white); padding: 8px 16px; border-radius: 6px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; transition: 0.3s; }
-        .btn-discord-header:hover { background-color: #4752C4; }
+        nav ul { display: flex; list-style: none; gap: 8px; align-items: center; }
 
-        .user-profile { display: none; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3); }
-        .user-avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--gold); }
-        .user-name { font-size: 13px; font-weight: 700; color: var(--white); }
-        .btn-logout { background: none; border: none; color: #ff4d4d; cursor: pointer; font-size: 14px; margin-right: 5px; }
+        .nav-link {
+            color: var(--text-sub);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-        /* Hero Section */
-        .hero { text-align: center; padding: 100px 20px 60px; max-width: 900px; margin: 0 auto; }
-        .hero h2 { font-size: 40px; color: var(--white); font-weight: 800; margin-bottom: 15px; }
-        .hero h2 span { color: var(--gold); }
-        .hero p { font-size: 18px; line-height: 1.8; opacity: 0.9; margin-bottom: 30px; }
-        .welcome-box { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); padding: 12px 20px; border-radius: 8px; color: var(--gold-light); display: inline-block; font-weight: 700; margin-bottom: 20px; }
+        .nav-link:hover, .nav-link.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.02);
+        }
+
+        .nav-link.active { border-bottom: 2px solid var(--gold); }
+
+        /* Special Admin Tab */
+        #admin-tab {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--cyan);
+            border: 1px solid var(--cyan-glow);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            display: none;
+        }
+        #admin-tab:hover { background: var(--cyan); color: #000; }
+
+        /* Buttons Styling */
+        .btn-neon-gold {
+            background: linear-gradient(135deg, var(--gold-glow), var(--gold));
+            color: #000;
+            font-weight: 800;
+            padding: 8px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+        .btn-neon-gold:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
+
+        .btn-discord {
+            background: var(--discord);
+            color: #fff;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+        }
+        .btn-discord:hover { background: #4752C4; transform: translateY(-2px); }
+
+        /* User Profile Pill */
+        .user-pill {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 5px 14px;
+            border-radius: 30px;
+        }
+        .user-pill img { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--gold); }
+        .user-pill span { font-size: 13px; font-weight: 800; color: #fff; }
+        .btn-logout { background: none; border: none; color: #ff5555; cursor: pointer; margin-right: 5px; }
+
+        /* --- Hero Showcase --- */
+        .hero {
+            padding-top: 180px;
+            padding-bottom: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid var(--cyan-glow);
+            color: var(--cyan);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        .badge-status .dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--gold), #ffffff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-sub);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        /* Hologram Grid Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: right;
+            backdrop-filter: blur(12px);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: 0.4s;
+        }
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(212, 175, 55, 0.15);
+        }
+        .glass-card:hover::before { opacity: 1; }
+
+        .glass-card i { font-size: 36px; color: var(--gold); margin-bottom: 20px; display: block; }
+        .glass-card h3 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+        .glass-card p { font-size: 14px; color: var(--text-sub); line-height: 1.6; }
+
     </style>
 </head>
 <body>
 
-    <!-- REAL LOADING SCREEN (شاشة التحميل الرئيسية) -->
-    <div id="splash-loading">
-        <div class="splash-content">
-            <i class="fa-solid fa-shield-halved splash-logo"></i>
+    <!-- Cyber Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-box">
+            <i class="fa-solid fa-shield-halved splash-icon"></i>
             <div class="splash-title">PMT SYSTEM</div>
-            <div class="splash-subtitle">نظام إدارة فريق الإعلام الموحد</div>
+            <div class="splash-subtitle">المنصة الإعلامية الموحدة V2.5</div>
 
-            <div class="spinner"></div>
-
-            <div class="loading-bar-bg">
-                <div class="loading-bar-fill" id="splash-bar"></div>
+            <div class="progress-track">
+                <div class="progress-fill" id="splash-fill"></div>
             </div>
 
-            <div class="loading-status">
-                <span id="splash-text">جاري إعداد واجهة النظام...</span>
+            <div class="status-row">
+                <span id="splash-status">جاري تهيئة النظام...</span>
                 <span id="splash-percent">0%</span>
             </div>
         </div>
     </div>
 
-    <!-- Header Navigation Bar -->
+    <!-- Navigation Bar -->
     <header>
-        <div class="logo">
-            <h1>PMT SYSTEM</h1>
-            <span>نظام إدارة فريق الإعلام الموحد</span>
+        <div class="brand-logo">
+            <i class="fa-solid fa-crown"></i>
+            <div>
+                <span class="title">PMT SYSTEM</span>
+                <span class="sub">MEDIA TEAM PLATFORM</span>
+            </div>
         </div>
+
         <nav>
             <ul>
-                <li><span class="status-badge"><span class="pulse-dot"></span> النظام متصل</span></li>
-                <li><a href="index.html" class="active">الصفحة الرئيسية</a></li>
-                <li><a href="about.html">من نحن</a></li>
-                <li><a href="tasks.html">مهام الفريق</a></li>
-                <li><a href="apply.html" class="btn-gold">التقديم</a></li>
+                <li><a href="index.html" class="nav-link active"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
+                <li><a href="about.html" class="nav-link"><i class="fa-solid fa-users"></i> من نحن</a></li>
+                <li><a href="tasks.html" class="nav-link"><i class="fa-solid fa-list-check"></i> المهام</a></li>
+                <li><a href="apply.html" class="btn-neon-gold">التقديم</a></li>
                 
-                <!-- تبويب لوحة الإدارة (يظهر حصرياً للمالك yx8q) -->
-                <li><a href="admin.html" id="admin-tab" style="display: none; color: #00e1ff;"><i class="fa-solid fa-shield-halved"></i> لوحة الإدارة</a></li>
+                <!-- تبويب لوحة الإدارة الحصري لـ yx8q -->
+                <li><a href="admin.html" id="admin-tab" class="nav-link"><i class="fa-solid fa-lock"></i> لوحة الإدارة</a></li>
 
-                <li id="auth-container">
-                    <button id="login-btn-header" class="btn-discord-header" onclick="loginDiscord()">
-                        <i class="fa-brands fa-discord"></i> دخول عبر ديسكورد
+                <li id="auth-box">
+                    <button id="login-btn" class="btn-discord" onclick="loginWithDiscord()">
+                        <i class="fa-brands fa-discord"></i> تسجيل الدخول
                     </button>
-                    <div id="user-profile" class="user-profile">
-                        <img id="user-avatar" class="user-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
-                        <span id="user-name" class="user-name"></span>
-                        <button class="btn-logout" onclick="logout()" title="تسجيل الخروج"><i class="fa-solid fa-right-from-bracket"></i></button>
+
+                    <div id="user-pill" class="user-pill">
+                        <img id="user-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="User Avatar">
+                        <span id="user-name"></span>
+                        <button class="btn-logout" onclick="logout()" title="تسجيل الخروج"><i class="fa-solid fa-power-off"></i></button>
                     </div>
                 </li>
             </ul>
@@ -200,67 +344,88 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div id="welcome-msg" class="welcome-box">أهلاً بك في البوابة الرسمية لفريق الإعلام</div>
-        <h2>المنصة الإعلامية <span>الموحدة</span></h2>
-        <p>نعمل على تغطية وإدارة كافة الفعاليات والأخبار الرسمية بأعلى مستويات الاحترافية والسرعة.</p>
+        <div class="badge-status">
+            <span class="dot"></span> النظام يعمل بكامل الكفاءة البرمجية
+        </div>
+
+        <h1>الجيل الجديد من إدارة <br><span>التغطية الإعلامية الاحترافية</span></h1>
+        
+        <p>نظام موحد ومطور خصيصاً للتنظيم المباشر، إدارة المهام الميدانية، والتحكم بالصلاحيات بأعلى درجات الأمان والسرعة.</p>
+
+        <!-- Dynamic Grid Showcase -->
+        <div class="cards-grid">
+            <div class="glass-card">
+                <i class="fa-solid fa-bolt-lightning"></i>
+                <h3>تغطية إعلامية فورية</h3>
+                <p>متابعة وتحديث المستجدات والأحداث الإعلامية أولاً بأول بتقنيات بث ومزامنة مباشرة.</p>
+            </div>
+
+            <div class="glass-card">
+                <i class="fa-solid fa-chart-line"></i>
+                <h3>إدارة المهام الذكية</h3>
+                <p>توزيع الأدوار على أفراد الفريق ومتابعة نسبة الإنجاز والتقارير اليومية بدقة.</p>
+            </div>
+
+            <div class="glass-card">
+                <i class="fa-solid fa-user-shield"></i>
+                <h3>حماية وصلاحيات محكمة</h3>
+                <p>نظام وصول متقدم يضمن توفير أدوات التحكم والقيادة للقيادات والإدارة فقط.</p>
+            </div>
+        </div>
     </section>
 
     <script>
         const ADMIN_USERS = ['yx8q'];
 
-        // محاكاة شاشة التحميل عند فتح الموقع
+        // تشغيل شاشة التحميل الرسومية السريعة
         window.addEventListener('DOMContentLoaded', () => {
-            const bar = document.getElementById('splash-bar');
+            const fill = document.getElementById('splash-fill');
             const percent = document.getElementById('splash-percent');
-            const text = document.getElementById('splash-text');
-            const splash = document.getElementById('splash-loading');
+            const status = document.getElementById('splash-status');
+            const splash = document.getElementById('splash-screen');
 
-            let progress = 0;
-            const messages = [
-                "جاري الاتصال بالسيرفر...",
-                "التحقق من صلاحيات الحساب...",
-                "تحميل القوائم ولوحة التحكم...",
-                "اكتمل التحميل!"
+            let p = 0;
+            const steps = [
+                "جاري الاتصال بالسيرفر المركزي...",
+                "فحص بروتوكولات الأمان...",
+                "التحقق من جلسة المستخدم...",
+                "تم تجهيز الواجهة بنجاح!"
             ];
 
-            const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 12) + 5;
-                
-                if (progress > 100) progress = 100;
+            const timer = setInterval(() => {
+                p += Math.floor(Math.random() * 15) + 8;
+                if (p > 100) p = 100;
 
-                bar.style.width = progress + '%';
-                percent.innerText = progress + '%';
+                fill.style.width = p + '%';
+                percent.innerText = p + '%';
 
-                if (progress < 30) text.innerText = messages[0];
-                else if (progress < 65) text.innerText = messages[1];
-                else if (progress < 90) text.innerText = messages[2];
-                else text.innerText = messages[3];
+                if (p < 35) status.innerText = steps[0];
+                else if (p < 70) status.innerText = steps[1];
+                else if (p < 95) status.innerText = steps[2];
+                else status.innerText = steps[3];
 
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    
-                    // فحص جلسة المستخدم عند نهاية التحميل
-                    checkUserSession();
+                if (p >= 100) {
+                    clearInterval(timer);
+                    checkSession();
 
                     setTimeout(() => {
                         splash.style.opacity = '0';
-                        setTimeout(() => {
-                            splash.style.visibility = 'hidden';
-                        }, 800);
-                    }, 400);
+                        setTimeout(() => splash.style.visibility = 'hidden', 800);
+                    }, 300);
                 }
-            }, 100);
+            }, 80);
         });
 
-        function loginDiscord() {
-            const username = prompt("أدخل اسم حسابك في ديسكورد لتسجيل الدخول:", "yx8q");
+        // تسجيل الدخول بالديسكورد
+        function loginWithDiscord() {
+            const username = prompt("أدخل اسم حسابك في ديسكورد للتسجيل:", "yx8q");
             if (username && username.trim() !== "") {
-                const userData = {
+                const user = {
                     name: username.trim(),
-                    avatarUrl: 'https://cdn.discordapp.com/embed/avatars/0.png'
+                    avatar: 'https://cdn.discordapp.com/embed/avatars/0.png'
                 };
-                localStorage.setItem('discord_user', JSON.stringify(userData));
-                checkUserSession();
+                localStorage.setItem('discord_user', JSON.stringify(user));
+                checkSession();
             }
         }
 
@@ -269,26 +434,23 @@
             location.reload();
         }
 
-        function checkUserSession() {
-            const savedUser = localStorage.getItem('discord_user');
-            if (savedUser) {
-                const user = JSON.parse(savedUser);
-                document.getElementById('login-btn-header').style.display = 'none';
-                const profileDiv = document.getElementById('user-profile');
-                profileDiv.style.display = 'flex';
-                document.getElementById('user-avatar').src = user.avatarUrl;
+        // فحص حالة الجلسة وتفعيل تبويب الإدارة
+        function checkSession() {
+            const saved = localStorage.getItem('discord_user');
+            if (saved) {
+                const user = JSON.parse(saved);
+                document.getElementById('login-btn').style.display = 'none';
+                
+                const pill = document.getElementById('user-pill');
+                pill.style.display = 'flex';
+                document.getElementById('user-avatar').src = user.avatar;
                 document.getElementById('user-name').innerText = user.name;
 
-                const welcomeElem = document.getElementById('welcome-msg');
-                if (welcomeElem) {
-                    welcomeElem.innerText = `أهلاً بك يا ${user.name} في نظام فريق الإعلام الموحد!`;
-                }
-
-                // إظهار تبويب لوحة الإدارة فقط لحساب yx8q
+                // تفعيل لوحة الإدارة حصرياً للمالك yx8q
                 const adminTab = document.getElementById('admin-tab');
                 if (adminTab) {
                     if (ADMIN_USERS.includes(user.name.toLowerCase())) {
-                        adminTab.style.display = 'inline-block';
+                        adminTab.style.display = 'flex';
                     } else {
                         adminTab.style.display = 'none';
                     }
