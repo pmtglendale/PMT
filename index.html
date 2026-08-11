@@ -42,15 +42,19 @@
         .loader-hidden { opacity: 0; visibility: hidden; }
 
         /* ==================== الهيدر والقائمة ==================== */
-        header { background-color: rgba(7, 14, 23, 0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        header { background-color: rgba(7, 14, 23, 0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
         .logo h1 { color: var(--gold); font-size: 24px; font-weight: 800; }
         .logo span { font-size: 12px; color: var(--text-light); display: block; }
         nav ul { list-style: none; display: flex; gap: 20px; align-items: center; }
         nav ul li a { text-decoration: none; color: var(--white); font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.3s; }
         nav ul li a:hover, nav ul li a.active { color: var(--gold); }
 
+        .status-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 225, 255, 0.1); border: 1px solid var(--light-blue); padding: 4px 10px; border-radius: 12px; font-size: 12px; color: var(--light-blue); font-weight: 600; }
+        .pulse-dot { width: 8px; height: 8px; background-color: #00ff88; border-radius: 50%; box-shadow: 0 0 8px #00ff88; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.4; transform: scale(0.9); } }
+
         .btn-discord { background-color: var(--discord-color); color: var(--white); padding: 8px 18px; border-radius: 5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; transition: 0.3s; }
-        .btn-discord:hover { background-color: #4752C4; }
+        .btn-discord:hover { background-color: #4752C4; transform: translateY(-2px); }
 
         .user-profile { display: none; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3); }
         .user-avatar { width: 32px; height: 32px; border-radius: 50%; }
@@ -58,14 +62,36 @@
         .btn-logout { color: #ff4d4d; background: none; border: none; cursor: pointer; font-size: 14px; margin-right: 5px; }
 
         /* ==================== Sections ==================== */
-        .hero { height: 100vh; background: radial-gradient(circle at center, var(--secondary-dark) 0%, var(--primary-dark) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero { min-height: 100vh; background: radial-gradient(circle at center, var(--secondary-dark) 0%, var(--primary-dark) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 20px 60px; }
         .hero-logo { width: 220px; height: 220px; background: url('image.png') no-repeat center; background-size: contain; margin: 0 auto 20px; border-radius: 50%; box-shadow: 0 0 30px rgba(212, 175, 55, 0.25); }
         .hero h2 { font-size: 42px; color: var(--gold); margin-bottom: 10px; font-weight: 800; }
-        .hero p { font-size: 18px; margin-bottom: 30px; }
-        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark); padding: 10px 24px; border-radius: 4px; font-weight: 800; text-decoration: none; margin: 5px; cursor: pointer; border: none; }
-        .btn-outline { background: transparent; color: var(--white); padding: 10px 24px; border: 2px solid var(--gold); border-radius: 4px; font-weight: 700; text-decoration: none; margin: 5px; }
+        .hero p { font-size: 18px; margin-bottom: 30px; max-width: 650px; line-height: 1.6; }
+        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark); padding: 12px 28px; border-radius: 5px; font-weight: 800; text-decoration: none; margin: 5px; cursor: pointer; border: none; transition: 0.3s; display: inline-block; }
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
+        .btn-outline { background: transparent; color: var(--white); padding: 12px 28px; border: 2px solid var(--gold); border-radius: 5px; font-weight: 700; text-decoration: none; margin: 5px; transition: 0.3s; display: inline-block; }
+        .btn-outline:hover { background: rgba(212, 175, 55, 0.1); transform: translateY(-3px); }
 
-        footer { background-color: #04080d; padding: 20px 50px; text-align: center; font-size: 13px; border-top: 1px solid rgba(212,175,55,0.1); }
+        /* ==================== الإحصائيات ==================== */
+        .stats-section { padding: 60px 50px; background-color: var(--secondary-dark); border-top: 1px solid rgba(212, 175, 55, 0.15); border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
+        .stats-container { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .stat-card { text-align: center; flex: 1; min-width: 200px; padding: 20px; background: rgba(7, 14, 23, 0.6); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 10px; transition: 0.3s; }
+        .stat-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .stat-card i { font-size: 36px; color: var(--gold); margin-bottom: 15px; }
+        .stat-card h3 { font-size: 32px; color: var(--white); font-weight: 800; }
+        .stat-card p { font-size: 14px; color: var(--text-light); opacity: 0.8; margin-top: 5px; }
+
+        /* ==================== أحدث التغطيات والأخبار ==================== */
+        .features-section { padding: 80px 50px; max-width: 1200px; margin: 0 auto; text-align: center; }
+        .section-title { font-size: 32px; color: var(--gold); font-weight: 800; margin-bottom: 10px; }
+        .section-subtitle { font-size: 15px; color: var(--text-light); margin-bottom: 50px; opacity: 0.8; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-card { background: var(--secondary-dark); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 30px 20px; text-align: right; transition: 0.3s; }
+        .feature-card:hover { border-color: var(--light-blue); box-shadow: 0 10px 25px rgba(0, 225, 255, 0.1); transform: translateY(-5px); }
+        .feature-card .icon-box { width: 50px; height: 50px; background: rgba(212, 175, 55, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: var(--gold); font-size: 22px; }
+        .feature-card h4 { font-size: 20px; color: var(--white); margin-bottom: 10px; font-weight: 700; }
+        .feature-card p { font-size: 14px; line-height: 1.7; opacity: 0.8; }
+
+        footer { background-color: #04080d; padding: 25px 50px; text-align: center; font-size: 13px; border-top: 1px solid rgba(212,175,55,0.1); }
     </style>
 </head>
 <body>
@@ -87,9 +113,13 @@
 
     <!-- هيدر الموقع -->
     <header>
-        <div class="logo"><h1>PMT</h1><span>فريق الإعلام | LSPD</span></div>
+        <div class="logo">
+            <h1>PMT</h1>
+            <span>فريق الإعلام | LSPD</span>
+        </div>
         <nav>
             <ul>
+                <li><span class="status-badge"><span class="pulse-dot"></span> النظام متصل</span></li>
                 <li><a href="index.html" class="active">الصفحة الرئيسية</a></li>
                 <li><a href="about.html">من نحن</a></li>
                 <li><a href="tasks.html">مهام الفريق</a></li>
@@ -114,18 +144,72 @@
     <section class="hero">
         <div class="hero-logo"></div> 
         <h2>فريق الإعلام (PMT)</h2>
-        <p id="welcome-msg">توثيق، إنتاج، وبث كافة التغطيات والأنشطة الإعلامية الخاصة بالإدارة</p>
+        <p id="welcome-msg">المنصة الموحدة لتوثيق، إنتاج، وبث كافة التغطيات والأنشطة الإعلامية الرسمية الخاصة بالإدارة بأعلى معايير الاحترافية.</p>
         <div>
             <a href="tasks.html" class="btn-outline">استعراض المهام</a>
             <a href="apply.html" class="btn-gold">تقديم طلب الانضمام</a>
         </div>
     </section>
 
-    <footer><p>&copy; 2026 جميع الحقوق محفوظة لـ فريق الإعلام - LSPD.</p></footer>
+    <!-- قسم الإحصائيات -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-card">
+                <i class="fa-solid fa-video"></i>
+                <h3>+150</h3>
+                <p>تغطية ومونتاج إعلامي</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-users"></i>
+                <h3>+30</h3>
+                <p>عضو نخبوي في الفريق</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-newspaper"></i>
+                <h3>+80</h3>
+                <p>بيان ومقال صحفي</p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-bullhorn"></i>
+                <h3>100%</h3>
+                <p>جاهزية لتغطية الأحداث</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم مميزات وتخصصات الفريق -->
+    <section class="features-section">
+        <h3 class="section-title">ركائز العمل الإعلامي</h3>
+        <p class="section-subtitle">نعمل وفق منظومة متكاملة لضمان نقل الصورة بكل شفافية واحترافية</p>
+        
+        <div class="cards-grid">
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-camera-retro"></i></div>
+                <h4>التوثيق الميداني</h4>
+                <p>تغطية جميع المداهمات، الفعاليات الرسمية، والمؤتمرات الصحفية بأحدث أجهزة التصوير والتسجيل.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-film"></i></div>
+                <h4>الإنتاج والمونتاج</h4>
+                <p>صناعة الأفلام الوثائقية والترويجية وتعديل مقاطع الفيديو بصورة تناسب هيبة المؤسسة الأمنية.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-pen-nib"></i></div>
+                <h4>صياغة الأخبار والبيانات</h4>
+                <p>كتابة ونشر البيانات الرسمية والجرائد والتصاريح الإعلامية الموجهة للرأي العام بدقة عالية.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 جميع الحقوق محفوظة لـ فريق الإعلام - LSPD.</p>
+    </footer>
 
     <!-- السكربتات والتفاعلات -->
     <script>
-        // إخفاء التحميل
+        // إخفاء شاشة التحميل
         window.addEventListener("load", function() {
             setTimeout(function() {
                 document.getElementById("loader").classList.add("loader-hidden");
