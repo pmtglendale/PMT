@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فريق الإعلام | الرئيسية</title>
+    <title>فريق الإعلام | الصفحة الرئيسية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -20,102 +20,46 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--primary-dark); color: var(--text-light); overflow-x: hidden; }
+        body { background-color: var(--primary-dark); color: var(--text-light); min-height: 100vh; padding-top: 90px; }
 
-        /* ==================== شاشة التحميل ==================== */
-        #loader {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at center, #121f30 0%, #04080d 100%);
-            z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-        .loader-content { text-align: center; }
-        .loader-logo-wrapper { position: relative; width: 180px; height: 180px; margin: 0 auto 25px; display: flex; justify-content: center; align-items: center; }
-        .loader-logo { width: 130px; height: 130px; background: url('image.png') no-repeat center; background-size: contain; border-radius: 50%; z-index: 2; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
-        .spinner { position: absolute; width: 100%; height: 100%; border: 3px solid transparent; border-top: 3px solid var(--gold); border-right: 3px solid var(--light-blue); border-radius: 50%; animation: spin 1.5s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .loader-title { color: var(--gold); font-size: 24px; font-weight: 800; margin-bottom: 5px; }
-        .loader-sub { color: var(--text-light); font-size: 13px; margin-bottom: 25px; opacity: 0.8; }
-        .progress-bar-container { width: 260px; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; margin: 0 auto; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.3); }
-        .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, var(--gold) 0%, var(--light-blue) 100%); border-radius: 10px; animation: fillProgress 2s ease-in-out forwards; }
-        @keyframes fillProgress { 0% { width: 0%; } 50% { width: 65%; } 100% { width: 100%; } }
-        .loader-hidden { opacity: 0; visibility: hidden; }
-
-        /* ==================== الهيدر والقائمة ==================== */
+        /* Header Navigation */
         header { background-color: rgba(7, 14, 23, 0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); }
-        .logo h1 { color: var(--gold); font-size: 24px; font-weight: 800; }
-        .logo span { font-size: 12px; color: var(--text-light); display: block; }
-        nav ul { list-style: none; display: flex; gap: 20px; align-items: center; }
-        nav ul li a { text-decoration: none; color: var(--white); font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.3s; }
-        nav ul li a:hover, nav ul li a.active { color: var(--gold); }
+        .logo h1 { color: var(--gold); font-size: 22px; font-weight: 800; }
+        .logo span { font-size: 11px; color: var(--text-light); display: block; }
+        
+        nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        nav a { color: var(--text-light); text-decoration: none; font-weight: 600; font-size: 14px; transition: 0.3s; }
+        nav a:hover, nav a.active { color: var(--gold); }
+        
+        /* Status Badge */
+        .status-badge { background: rgba(0, 225, 255, 0.1); border: 1px solid var(--light-blue); color: var(--light-blue); padding: 4px 10px; border-radius: 12px; font-size: 11px; display: flex; align-items: center; gap: 6px; }
+        .pulse-dot { width: 6px; height: 6px; background-color: var(--light-blue); border-radius: 50%; box-shadow: 0 0 8px var(--light-blue); }
 
-        .status-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 225, 255, 0.1); border: 1px solid var(--light-blue); padding: 4px 10px; border-radius: 12px; font-size: 12px; color: var(--light-blue); font-weight: 600; }
-        .pulse-dot { width: 8px; height: 8px; background-color: #00ff88; border-radius: 50%; box-shadow: 0 0 8px #00ff88; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.4; transform: scale(0.9); } }
-
-        .btn-discord { background-color: var(--discord-color); color: var(--white); padding: 8px 18px; border-radius: 5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; transition: 0.3s; }
+        /* Buttons & Auth */
+        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark) !important; padding: 8px 18px; border-radius: 6px; font-weight: 800 !important; }
+        .btn-discord { background-color: var(--discord-color); color: var(--white); padding: 8px 16px; border-radius: 6px; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; transition: 0.3s; }
         .btn-discord:hover { background-color: #4752C4; transform: translateY(-2px); }
 
-        .user-profile { display: none; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3); }
-        .user-avatar { width: 32px; height: 32px; border-radius: 50%; }
-        .user-name { color: var(--gold); font-weight: 700; font-size: 14px; }
-        .btn-logout { color: #ff4d4d; background: none; border: none; cursor: pointer; font-size: 14px; margin-right: 5px; }
+        .user-profile { display: none; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(212, 175, 55, 0.3); }
+        .user-avatar { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--gold); }
+        .user-name { font-size: 13px; font-weight: 700; color: var(--white); }
+        .btn-logout { background: none; border: none; color: #ff4d4d; cursor: pointer; font-size: 14px; margin-right: 5px; }
 
-        /* ==================== Sections ==================== */
-        .hero { min-height: 100vh; background: radial-gradient(circle at center, var(--secondary-dark) 0%, var(--primary-dark) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 20px 60px; }
-        .hero-logo { width: 220px; height: 220px; background: url('image.png') no-repeat center; background-size: contain; margin: 0 auto 20px; border-radius: 50%; box-shadow: 0 0 30px rgba(212, 175, 55, 0.25); }
-        .hero h2 { font-size: 42px; color: var(--gold); margin-bottom: 10px; font-weight: 800; }
-        .hero p { font-size: 18px; margin-bottom: 30px; max-width: 650px; line-height: 1.6; }
-        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark); padding: 12px 28px; border-radius: 5px; font-weight: 800; text-decoration: none; margin: 5px; cursor: pointer; border: none; transition: 0.3s; display: inline-block; }
-        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
-        .btn-outline { background: transparent; color: var(--white); padding: 12px 28px; border: 2px solid var(--gold); border-radius: 5px; font-weight: 700; text-decoration: none; margin: 5px; transition: 0.3s; display: inline-block; }
-        .btn-outline:hover { background: rgba(212, 175, 55, 0.1); transform: translateY(-3px); }
-
-        /* ==================== الإحصائيات ==================== */
-        .stats-section { padding: 60px 50px; background-color: var(--secondary-dark); border-top: 1px solid rgba(212, 175, 55, 0.15); border-bottom: 1px solid rgba(212, 175, 55, 0.15); }
-        .stats-container { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .stat-card { text-align: center; flex: 1; min-width: 200px; padding: 20px; background: rgba(7, 14, 23, 0.6); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 10px; transition: 0.3s; }
-        .stat-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .stat-card i { font-size: 36px; color: var(--gold); margin-bottom: 15px; }
-        .stat-card h3 { font-size: 32px; color: var(--white); font-weight: 800; }
-        .stat-card p { font-size: 14px; color: var(--text-light); opacity: 0.8; margin-top: 5px; }
-
-        /* ==================== أحدث التغطيات والأخبار ==================== */
-        .features-section { padding: 80px 50px; max-width: 1200px; margin: 0 auto; text-align: center; }
-        .section-title { font-size: 32px; color: var(--gold); font-weight: 800; margin-bottom: 10px; }
-        .section-subtitle { font-size: 15px; color: var(--text-light); margin-bottom: 50px; opacity: 0.8; }
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .feature-card { background: var(--secondary-dark); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; padding: 30px 20px; text-align: right; transition: 0.3s; }
-        .feature-card:hover { border-color: var(--light-blue); box-shadow: 0 10px 25px rgba(0, 225, 255, 0.1); transform: translateY(-5px); }
-        .feature-card .icon-box { width: 50px; height: 50px; background: rgba(212, 175, 55, 0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; color: var(--gold); font-size: 22px; }
-        .feature-card h4 { font-size: 20px; color: var(--white); margin-bottom: 10px; font-weight: 700; }
-        .feature-card p { font-size: 14px; line-height: 1.7; opacity: 0.8; }
-
-        footer { background-color: #04080d; padding: 25px 50px; text-align: center; font-size: 13px; border-top: 1px solid rgba(212,175,55,0.1); }
+        /* Hero Section */
+        .hero { text-align: center; padding: 100px 20px 60px; max-width: 900px; margin: 0 auto; }
+        .hero h2 { font-size: 40px; color: var(--white); font-weight: 800; margin-bottom: 15px; }
+        .hero h2 span { color: var(--gold); }
+        .hero p { font-size: 18px; line-height: 1.8; opacity: 0.9; margin-bottom: 30px; }
+        .welcome-box { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); padding: 12px 20px; border-radius: 8px; color: var(--gold-light); display: inline-block; font-weight: 700; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <!-- شاشة التحميل -->
-    <div id="loader">
-        <div class="loader-content">
-            <div class="loader-logo-wrapper">
-                <div class="spinner"></div>
-                <div class="loader-logo"></div>
-            </div>
-            <div class="loader-title">Police Media Team</div>
-            <div class="loader-sub">جاري تحضير النظام الإعلامي...</div>
-            <div class="progress-bar-container">
-                <div class="progress-bar"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- هيدر الموقع -->
+    <!-- Header Navigation Bar -->
     <header>
         <div class="logo">
-            <h1>PMT</h1>
-            <span>فريق الإعلام | LSPD</span>
+            <h1>PMT SYSTEM</h1>
+            <span>نظام إدارة فريق الإعلام الموحد</span>
         </div>
         <nav>
             <ul>
@@ -124,8 +68,11 @@
                 <li><a href="about.html">من نحن</a></li>
                 <li><a href="tasks.html">مهام الفريق</a></li>
                 <li><a href="apply.html" class="btn-gold">التقديم</a></li>
+                
+                <!-- تبويب لوحة الإدارة (يظهر تلقائياً للمالك والآدمن فقط) -->
+                <li><a href="admin.html" id="admin-tab" style="display: none; color: #00e1ff;"><i class="fa-solid fa-shield-halved"></i> لوحة الإدارة</a></li>
 
-                <!-- تسجيل الدخول عبر ديسكورد -->
+                <!-- منطقة تسجيل الدخول -->
                 <li id="auth-container">
                     <button id="login-btn" class="btn-discord" onclick="loginWithDiscord()">
                         <i class="fa-brands fa-discord"></i> دخول عبر ديسكورد
@@ -140,93 +87,29 @@
         </nav>
     </header>
 
-    <!-- الرئيسية -->
+    <!-- Hero Content Section -->
     <section class="hero">
-        <div class="hero-logo"></div> 
-        <h2>فريق الإعلام (PMT)</h2>
-        <p id="welcome-msg">المنصة الموحدة لتوثيق، إنتاج، وبث كافة التغطيات والأنشطة الإعلامية الرسمية الخاصة بالإدارة بأعلى معايير الاحترافية.</p>
-        <div>
-            <a href="tasks.html" class="btn-outline">استعراض المهام</a>
-            <a href="apply.html" class="btn-gold">تقديم طلب الانضمام</a>
-        </div>
+        <div id="welcome-msg" class="welcome-box">أهلاً بك في البوابة الرسمية لفريق الإعلام</div>
+        <h2>المنصة الإعلامية <span>الموحدة</span></h2>
+        <p>نعمل على تغطية وإدارة كافة الفعاليات والأخبار الرسمية بأعلى مستويات الاحترافية والسرعة.</p>
     </section>
 
-    <!-- قسم الإحصائيات -->
-    <section class="stats-section">
-        <div class="stats-container">
-            <div class="stat-card">
-                <i class="fa-solid fa-video"></i>
-                <h3>+150</h3>
-                <p>تغطية ومونتاج إعلامي</p>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-users"></i>
-                <h3>+30</h3>
-                <p>عضو نخبوي في الفريق</p>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-newspaper"></i>
-                <h3>+80</h3>
-                <p>بيان ومقال صحفي</p>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-bullhorn"></i>
-                <h3>100%</h3>
-                <p>جاهزية لتغطية الأحداث</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- قسم مميزات وتخصصات الفريق -->
-    <section class="features-section">
-        <h3 class="section-title">ركائز العمل الإعلامي</h3>
-        <p class="section-subtitle">نعمل وفق منظومة متكاملة لضمان نقل الصورة بكل شفافية واحترافية</p>
-        
-        <div class="cards-grid">
-            <div class="feature-card">
-                <div class="icon-box"><i class="fa-solid fa-camera-retro"></i></div>
-                <h4>التوثيق الميداني</h4>
-                <p>تغطية جميع المداهمات، الفعاليات الرسمية، والمؤتمرات الصحفية بأحدث أجهزة التصوير والتسجيل.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon-box"><i class="fa-solid fa-film"></i></div>
-                <h4>الإنتاج والمونتاج</h4>
-                <p>صناعة الأفلام الوثائقية والترويجية وتعديل مقاطع الفيديو بصورة تناسب هيبة المؤسسة الأمنية.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon-box"><i class="fa-solid fa-pen-nib"></i></div>
-                <h4>صياغة الأخبار والبيانات</h4>
-                <p>كتابة ونشر البيانات الرسمية والجرائد والتصاريح الإعلامية الموجهة للرأي العام بدقة عالية.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 جميع الحقوق محفوظة لـ فريق الإعلام - LSPD.</p>
-    </footer>
-
-    <!-- السكربتات والتفاعلات -->
     <script>
-        // إخفاء شاشة التحميل
-        window.addEventListener("load", function() {
-            setTimeout(function() {
-                document.getElementById("loader").classList.add("loader-hidden");
-            }, 1800);
-        });
-
-        const CLIENT_ID = '1536788735335604344'; 
-        const REDIRECT_URI = 'https://pmtglendale.github.io/PMT/';
+        // إعدادات الديسكورد والمالك
+        const CLIENT_ID = '123456789012345678'; // استبدله بـ Client ID الخاص بتطبيقك في ديسكورد
+        const REDIRECT_URI = encodeURIComponent(window.location.origin + window.location.pathname);
+        
+        // قائمة الإدارة والمالك (تعتمد اسم المستخدم والـ ID)
+        const ADMIN_USERS = ['yx8q']; 
+        const ADMIN_IDS = ['1536788735335604344']; 
 
         function loginWithDiscord() {
-            const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
-            window.location.href = discordUrl;
+            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=token&scope=identify`;
         }
 
-        function getAccessToken() {
-            const fragment = new URLSearchParams(window.location.hash.slice(1));
-            return fragment.get('access_token');
+        function logout() {
+            localStorage.removeItem('discord_user');
+            window.location.href = window.location.pathname;
         }
 
         function fetchUserData(token) {
@@ -238,6 +121,7 @@
                 const { username, avatar, id } = response;
                 if (username) {
                     const userData = {
+                        id: id,
                         name: username,
                         avatarUrl: avatar ? `https://cdn.discordapp.com/avatars/${id}/${avatar}.png` : 'https://cdn.discordapp.com/embed/avatars/0.png'
                     };
@@ -255,22 +139,33 @@
             profileDiv.style.display = 'flex';
             document.getElementById('user-avatar').src = user.avatarUrl;
             document.getElementById('user-name').innerText = user.name;
-            document.getElementById('welcome-msg').innerText = `أهلاً بك يا ${user.name} في نظام فريق الإعلام الموحد!`;
+            
+            const welcomeElem = document.getElementById('welcome-msg');
+            if (welcomeElem) {
+                welcomeElem.innerText = `أهلاً بك يا ${user.name} في نظام فريق الإعلام الموحد!`;
+            }
+
+            // التحقق من صلاحية الإدارة لإظهار التبويب للمالك yx8q
+            const adminTab = document.getElementById('admin-tab');
+            if (adminTab) {
+                if (ADMIN_USERS.includes(user.name.toLowerCase()) || ADMIN_IDS.includes(user.id)) {
+                    adminTab.style.display = 'inline-block';
+                }
+            }
         }
 
-        function logout() {
-            localStorage.removeItem('discord_user');
-            location.reload();
-        }
+        // فحص حالة الجلسة أو توكن الديسكورد عند تحميل الصفحة
+        window.onload = function() {
+            const fragment = new URLSearchParams(window.location.hash.slice(1));
+            const accessToken = fragment.get('access_token');
 
-        window.onload = () => {
-            const token = getAccessToken();
-            const savedUser = localStorage.getItem('discord_user');
-
-            if (token) {
-                fetchUserData(token);
-            } else if (savedUser) {
-                showUserProfile(JSON.parse(savedUser));
+            if (accessToken) {
+                fetchUserData(accessToken);
+            } else {
+                const savedUser = localStorage.getItem('discord_user');
+                if (savedUser) {
+                    showUserProfile(JSON.parse(savedUser));
+                }
             }
         };
     </script>
