@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فريق الإعلام | الرئيسية والإدارة</title>
+    <title>فريق الإعلام | الرئيسية</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -17,8 +17,6 @@
             --text-light: #e0e0e0; 
             --white: #ffffff; 
             --discord-color: #5865F2;
-            --danger: #e74c3c;
-            --success: #2ecc71;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
@@ -48,10 +46,12 @@
         .logo h1 { color: var(--gold); font-size: 24px; font-weight: 800; }
         .logo span { font-size: 12px; color: var(--text-light); display: block; }
         nav ul { list-style: none; display: flex; gap: 20px; align-items: center; }
-        nav ul li a { text-decoration: none; color: var(--white); font-weight: 600; font-size: 15px; cursor: pointer; }
+        nav ul li a { text-decoration: none; color: var(--white); font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.3s; }
         nav ul li a:hover, nav ul li a.active { color: var(--gold); }
         
-        .admin-link { display: none; color: var(--gold-light) !important; font-weight: 700; }
+        .admin-link { display: none; }
+        .admin-link a { color: var(--gold-light) !important; font-weight: 700; background: rgba(212, 175, 55, 0.1); padding: 6px 14px; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); }
+        .admin-link a:hover { background: rgba(212, 175, 55, 0.25); }
 
         .btn-discord { background-color: var(--discord-color); color: var(--white); padding: 8px 18px; border-radius: 5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; transition: 0.3s; }
         .btn-discord:hover { background-color: #4752C4; }
@@ -62,37 +62,12 @@
         .btn-logout { color: #ff4d4d; background: none; border: none; cursor: pointer; font-size: 14px; margin-right: 5px; }
 
         /* ==================== Sections ==================== */
-        .page-section { display: none; padding-top: 100px; min-height: 100vh; }
-        .page-section.active { display: block; }
-
-        .hero { height: calc(100vh - 100px); background: radial-gradient(circle at center, var(--secondary-dark) 0%, var(--primary-dark) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero { height: 100vh; background: radial-gradient(circle at center, var(--secondary-dark) 0%, var(--primary-dark) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
         .hero-logo { width: 220px; height: 220px; background: url('image.png') no-repeat center; background-size: contain; margin: 0 auto 20px; border-radius: 50%; box-shadow: 0 0 30px rgba(212, 175, 55, 0.25); }
         .hero h2 { font-size: 42px; color: var(--gold); margin-bottom: 10px; font-weight: 800; }
         .hero p { font-size: 18px; margin-bottom: 30px; }
-        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark); padding: 10px 24px; border-radius: 4px; font-weight: 800; text-decoration: none; margin: 5px; cursor: pointer; }
+        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark); padding: 10px 24px; border-radius: 4px; font-weight: 800; text-decoration: none; margin: 5px; cursor: pointer; border: none; }
         .btn-outline { background: transparent; color: var(--white); padding: 10px 24px; border: 2px solid var(--gold); border-radius: 4px; font-weight: 700; text-decoration: none; margin: 5px; }
-
-        /* ==================== لوحة الإدارة والتوظيف ==================== */
-        .admin-container { padding: 40px 50px; max-width: 1200px; margin: 0 auto; }
-        .admin-title { font-size: 28px; color: var(--gold); margin-bottom: 20px; text-align: center; border-bottom: 2px solid rgba(212, 175, 55, 0.3); padding-bottom: 10px; }
-        
-        .admin-tabs { display: flex; gap: 15px; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .tab-btn { background: rgba(255,255,255,0.05); color: var(--white); padding: 10px 20px; border: none; border-radius: 5px 5px 0 0; cursor: pointer; font-weight: 700; font-size: 15px; }
-        .tab-btn.active { background: var(--gold); color: var(--primary-dark); }
-
-        .tab-content { display: none; background: var(--secondary-dark); padding: 25px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.2); }
-        .tab-content.active { display: block; }
-
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { padding: 12px 15px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        th { background: rgba(0,0,0,0.3); color: var(--gold); }
-        
-        .action-btn { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: 700; }
-        .btn-approve { background: var(--success); color: white; }
-        .btn-reject { background: var(--danger); color: white; }
-
-        .add-admin-form { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .add-admin-form input { flex: 1; padding: 10px; border-radius: 4px; border: 1px solid rgba(212, 175, 55, 0.3); background: var(--primary-dark); color: white; }
 
         footer { background-color: #04080d; padding: 20px 50px; text-align: center; font-size: 13px; border-top: 1px solid rgba(212,175,55,0.1); }
     </style>
@@ -119,14 +94,14 @@
         <div class="logo"><h1>PMT</h1><span>فريق الإعلام | LSPD</span></div>
         <nav>
             <ul>
-                <li><a onclick="showSection('home')" id="nav-home" class="active">الصفحة الرئيسية</a></li>
+                <li><a href="index.html" class="active">الصفحة الرئيسية</a></li>
                 <li><a href="about.html">من نحن</a></li>
                 <li><a href="tasks.html">مهام الفريق</a></li>
                 <li><a href="apply.html" class="btn-gold">التقديم</a></li>
                 
-                <!-- زر لوحة الإدارة (يظهر للإداريين فقط) -->
+                <!-- زر يوجّه مباشرة لصفحة admin.html المستقلة للإداريين فقط -->
                 <li id="admin-nav-item" class="admin-link">
-                    <a onclick="showSection('admin')"><i class="fa-solid fa-user-shield"></i> لوحة الإدارة</a>
+                    <a href="admin.html"><i class="fa-solid fa-user-shield"></i> لوحة الإدارة</a>
                 </li>
 
                 <!-- تسجيل الدخول عبر ديسكورد -->
@@ -145,67 +120,13 @@
     </header>
 
     <!-- الرئيسية -->
-    <section id="home" class="page-section hero active">
+    <section class="hero">
         <div class="hero-logo"></div> 
         <h2>فريق الإعلام (PMT)</h2>
         <p id="welcome-msg">توثيق، إنتاج، وبث كافة التغطيات والأنشطة الإعلامية الخاصة بالإدارة</p>
         <div>
             <a href="tasks.html" class="btn-outline">استعراض المهام</a>
             <a href="apply.html" class="btn-gold">تقديم طلب الانضمام</a>
-        </div>
-    </section>
-
-    <!-- لوحة الإدارة والتوظيف -->
-    <section id="admin" class="page-section">
-        <div class="admin-container">
-            <h2 class="admin-title"><i class="fa-solid fa-shield-halved"></i> لوحة الإدارة والتوظيف</h2>
-            
-            <div class="admin-tabs">
-                <button class="tab-btn active" onclick="openAdminTab('applications-tab', this)"><i class="fa-solid fa-file-signature"></i> طلبات التقديم (التوظيف)</button>
-                <button class="tab-btn" onclick="openAdminTab('admins-tab', this)"><i class="fa-solid fa-users-gear"></i> إدارة قائمة الإداريين</button>
-            </div>
-
-            <!-- تبويب طلبات التوظيف -->
-            <div id="applications-tab" class="tab-content active">
-                <h3>طلبات التقديم الواردة</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>الاسم / يوزر ديسكورد</th>
-                            <th>العمر</th>
-                            <th>الخبرات / الملاحظات</th>
-                            <th>الحالة</th>
-                            <th>إجراء</th>
-                        </tr>
-                    </thead>
-                    <tbody id="applications-list">
-                        <!-- يتم جلب التقديمات تلقائياً -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- تبويب إمكانيات إضافة الإداريين من داخل الموقع -->
-            <div id="admins-tab" class="tab-content">
-                <h3>إضافة إداري جديد من الموقع</h3>
-                <p style="font-size: 13px; margin-bottom: 15px; opacity: 0.8;">أدخل يوزر ديسكورد الخاص بالشخص الذي تريد منحه صلاحيات دخول لوحة الإدارة:</p>
-                <div class="add-admin-form">
-                    <input type="text" id="new-admin-username" placeholder="اسم حساب ديسكورد (مثال: discord_username)">
-                    <button class="btn-gold" onclick="addNewAdmin()">إضافة إداري</button>
-                </div>
-
-                <h3 style="margin-top: 25px;">قائمة الإداريين المعتمدين بالأنظمة</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>اسم حساب ديسكورد المصرح له</th>
-                            <th>إجراء</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admins-list">
-                        <!-- قائمة الإداريين -->
-                    </tbody>
-                </table>
-            </div>
         </div>
     </section>
 
@@ -217,17 +138,18 @@
         window.addEventListener("load", function() {
             setTimeout(function() {
                 document.getElementById("loader").classList.add("loader-hidden");
-            }, 2000);
+            }, 1800);
         });
 
         const CLIENT_ID = '1536788735335604344'; 
         const REDIRECT_URI = 'https://pmtglendale.github.io/PMT/';
+        const OWNER_USER = 'yx8q';
 
-        // جلب قائمة الإداريين من ذاكرة الموقع
-        let allowedAdmins = JSON.parse(localStorage.getItem('allowed_admins')) || [];
+        // جلب قائمة الإداريين المصرح لهم
+        let allowedAdmins = JSON.parse(localStorage.getItem('allowed_admins')) || [OWNER_USER];
 
-        function saveAdminsList() {
-            localStorage.setItem('allowed_admins', JSON.stringify(allowedAdmins));
+        if (!allowedAdmins.some(a => a.toLowerCase() === OWNER_USER.toLowerCase())) {
+            allowedAdmins.push(OWNER_USER);
         }
 
         function loginWithDiscord() {
@@ -268,14 +190,9 @@
             document.getElementById('user-name').innerText = user.name;
             document.getElementById('welcome-msg').innerText = `أهلاً بك يا ${user.name} في نظام فريق الإعلام الموحد!`;
 
-            // في حال كانت القائمة فارغة، يتم إدراج أول يوزر يسجل دخوله تلقائياً كمدير رئيسي
-            if (allowedAdmins.length === 0) {
-                allowedAdmins.push(user.name);
-                saveAdminsList();
-            }
-
-            // إظهار لوحة الإدارة إذا كان حساب ديسكورد ضمن المسموح لهم
-            if (allowedAdmins.includes(user.name)) {
+            // إظهار رابط صفحة الإدارة المستقلة فقط للـ Admin المصرح له
+            const isAdmin = allowedAdmins.some(admin => admin.toLowerCase() === user.name.toLowerCase());
+            if (isAdmin) {
                 document.getElementById('admin-nav-item').style.display = 'block';
             }
         }
@@ -283,98 +200,6 @@
         function logout() {
             localStorage.removeItem('discord_user');
             location.reload();
-        }
-
-        // التبديل بين الأقسام
-        function showSection(sectionId) {
-            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-            
-            if(sectionId === 'admin') {
-                loadApplications();
-                loadAdminsTable();
-            }
-        }
-
-        // التبديل بين تبويبات الإدارة
-        function openAdminTab(tabId, btn) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            btn.classList.add('active');
-        }
-
-        // عرض وإدارة التقديمات
-        function loadApplications() {
-            const apps = JSON.parse(localStorage.getItem('job_applications')) || [
-                { name: 'Oscar_Marcus', age: 20, exp: 'مصمم ومحرر فيديوهات سابق', status: 'قيد المراجعة' }
-            ];
-            const tbody = document.getElementById('applications-list');
-            tbody.innerHTML = '';
-
-            apps.forEach((app, index) => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${app.name}</td>
-                        <td>${app.age}</td>
-                        <td>${app.exp}</td>
-                        <td><b style="color:var(--gold);">${app.status}</b></td>
-                        <td>
-                            <button class="action-btn btn-approve" onclick="updateAppStatus(${index}, 'مقبول')">قبول</button>
-                            <button class="action-btn btn-reject" onclick="updateAppStatus(${index}, 'مرفوض')">رفض</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        function updateAppStatus(index, status) {
-            let apps = JSON.parse(localStorage.getItem('job_applications')) || [];
-            if(apps[index]) {
-                apps[index].status = status;
-                localStorage.setItem('job_applications', JSON.stringify(apps));
-                loadApplications();
-            }
-        }
-
-        // عرض قائمة الإدارة وإضافة إداري جديد من الموقع
-        function loadAdminsTable() {
-            const tbody = document.getElementById('admins-list');
-            tbody.innerHTML = '';
-            allowedAdmins.forEach((admin, index) => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td><i class="fa-brands fa-discord" style="color:var(--discord-color);"></i> ${admin}</td>
-                        <td><button class="action-btn btn-reject" onclick="removeAdmin(${index})">إزالة الصلاحية</button></td>
-                    </tr>
-                `;
-            });
-        }
-
-        function addNewAdmin() {
-            const input = document.getElementById('new-admin-username');
-            const username = input.value.trim();
-            if(username) {
-                if(!allowedAdmins.includes(username)) {
-                    allowedAdmins.push(username);
-                    saveAdminsList();
-                    input.value = '';
-                    loadAdminsTable();
-                    alert(`تم إعطاء صلاحيات الإدارة للـ يوزر (${username}) بنجاح!`);
-                } else {
-                    alert('هذا الحساب موجود بالفعل في قائمة الإدارة.');
-                }
-            } else {
-                alert('يرجى إدخال اسم حساب ديسكورد صحيح.');
-            }
-        }
-
-        function removeAdmin(index) {
-            if(confirm('هل أنت تأكد من إزالة صلاحيات الإدارة عن هذا الحساب؟')) {
-                allowedAdmins.splice(index, 1);
-                saveAdminsList();
-                loadAdminsTable();
-            }
         }
 
         window.onload = () => {
