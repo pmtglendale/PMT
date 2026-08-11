@@ -48,10 +48,6 @@
         nav ul { list-style: none; display: flex; gap: 20px; align-items: center; }
         nav ul li a { text-decoration: none; color: var(--white); font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.3s; }
         nav ul li a:hover, nav ul li a.active { color: var(--gold); }
-        
-        .admin-link { display: none; }
-        .admin-link a { color: var(--gold-light) !important; font-weight: 700; background: rgba(212, 175, 55, 0.1); padding: 6px 14px; border-radius: 6px; border: 1px solid rgba(212, 175, 55, 0.4); }
-        .admin-link a:hover { background: rgba(212, 175, 55, 0.25); }
 
         .btn-discord { background-color: var(--discord-color); color: var(--white); padding: 8px 18px; border-radius: 5px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; transition: 0.3s; }
         .btn-discord:hover { background-color: #4752C4; }
@@ -98,11 +94,6 @@
                 <li><a href="about.html">من نحن</a></li>
                 <li><a href="tasks.html">مهام الفريق</a></li>
                 <li><a href="apply.html" class="btn-gold">التقديم</a></li>
-                
-                <!-- زر يوجّه مباشرة لصفحة admin.html المستقلة للإداريين فقط -->
-                <li id="admin-nav-item" class="admin-link">
-                    <a href="admin.html"><i class="fa-solid fa-user-shield"></i> لوحة الإدارة</a>
-                </li>
 
                 <!-- تسجيل الدخول عبر ديسكورد -->
                 <li id="auth-container">
@@ -143,14 +134,6 @@
 
         const CLIENT_ID = '1536788735335604344'; 
         const REDIRECT_URI = 'https://pmtglendale.github.io/PMT/';
-        const OWNER_USER = 'yx8q';
-
-        // جلب قائمة الإداريين المصرح لهم
-        let allowedAdmins = JSON.parse(localStorage.getItem('allowed_admins')) || [OWNER_USER];
-
-        if (!allowedAdmins.some(a => a.toLowerCase() === OWNER_USER.toLowerCase())) {
-            allowedAdmins.push(OWNER_USER);
-        }
 
         function loginWithDiscord() {
             const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
@@ -189,12 +172,6 @@
             document.getElementById('user-avatar').src = user.avatarUrl;
             document.getElementById('user-name').innerText = user.name;
             document.getElementById('welcome-msg').innerText = `أهلاً بك يا ${user.name} في نظام فريق الإعلام الموحد!`;
-
-            // إظهار رابط صفحة الإدارة المستقلة فقط للـ Admin المصرح له
-            const isAdmin = allowedAdmins.some(admin => admin.toLowerCase() === user.name.toLowerCase());
-            if (isAdmin) {
-                document.getElementById('admin-nav-item').style.display = 'block';
-            }
         }
 
         function logout() {
