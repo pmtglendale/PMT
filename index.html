@@ -237,9 +237,9 @@
             }, 2000);
         });
 
-        // Application ID الخاص بك
+        // Application ID والرابط المعدل
         const CLIENT_ID = '1536788735335604344'; 
-        const REDIRECT_URI = window.location.origin + window.location.pathname;
+        const REDIRECT_URI = 'https://pmtglendale.github.io/PMT/';
 
         function loginWithDiscord() {
             const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
