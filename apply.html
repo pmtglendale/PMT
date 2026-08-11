@@ -1,149 +1,1259 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PMT | لوحة الإدارة والتحكم</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root { 
-            --bg-main: #030712; 
-            --bg-card: rgba(17, 24, 39, 0.8); 
-            --border-color: rgba(0, 240, 255, 0.3);
-            --gold: #f3d573; 
-            --cyan: #00f0ff; 
-            --cyan-glow: rgba(0, 240, 255, 0.4);
-            --text-main: #f3f4f6; 
-            --text-sub: #9ca3af;
-        }
+    <title>PMT | التقديم على فريق الإعلام</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; user-select: none; }
-        
-        body { 
-            background-color: var(--bg-main); color: var(--text-main); min-height: 100vh; overflow-x: hidden;
-            background-image: radial-gradient(circle at 50% 10%, rgba(0, 240, 255, 0.1) 0%, transparent 60%);
-        }
+```
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root {
+        --bg-main: #030712;
+        --bg-card: rgba(17, 24, 39, 0.78);
+        --border-color: rgba(212, 175, 55, 0.25);
+        --gold: #f3d573;
+        --gold-glow: #d4af37;
+        --cyan: #00f0ff;
+        --text-main: #f3f4f6;
+        --text-sub: #9ca3af;
+        --discord: #5865F2;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Cairo', sans-serif;
+    }
+
+    body {
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        min-height: 100vh;
+        overflow-x: hidden;
+
+        background-image:
+            radial-gradient(
+                circle at 15% 20%,
+                rgba(212, 175, 55, 0.08) 0%,
+                transparent 45%
+            ),
+            radial-gradient(
+                circle at 85% 80%,
+                rgba(0, 240, 255, 0.06) 0%,
+                transparent 45%
+            );
+
+        background-attachment: fixed;
+    }
+
+    /* ================= HEADER ================= */
+
+    header {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        width: 92%;
+        max-width: 1280px;
+
+        background: rgba(10, 15, 26, 0.78);
+        backdrop-filter: blur(16px);
+
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+
+        padding: 12px 30px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        z-index: 1000;
+    }
+
+    .brand-logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .brand-logo i {
+        font-size: 24px;
+        color: var(--gold);
+    }
+
+    .brand-logo .title {
+        font-weight: 900;
+        font-size: 20px;
+        color: #fff;
+    }
+
+    .brand-logo .sub {
+        font-size: 10px;
+        color: var(--cyan);
+        display: block;
+        font-weight: 700;
+    }
+
+    nav ul {
+        display: flex;
+        list-style: none;
+        gap: 8px;
+        align-items: center;
+    }
+
+    .nav-link {
+        color: var(--text-sub);
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+
+        transition: 0.3s;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        color: #fff;
+        background: rgba(255,255,255,0.05);
+    }
+
+    .nav-link.active {
+        border-bottom: 2px solid var(--gold);
+    }
+
+    #admin-tab {
+        background: rgba(0,240,255,0.1);
+        color: var(--cyan);
+        border: 1px solid rgba(0,240,255,0.4);
+        display: none;
+    }
+
+    .btn-neon-gold {
+        background: linear-gradient(
+            135deg,
+            var(--gold-glow),
+            var(--gold)
+        );
+
+        color: #000;
+        font-weight: 800;
+
+        padding: 8px 20px;
+
+        border-radius: 10px;
+        text-decoration: none;
+    }
+
+    .btn-discord {
+        background: var(--discord);
+        color: #fff;
+
+        border: none;
+
+        padding: 9px 18px;
+
+        border-radius: 10px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .user-pill {
+        display: none;
+
+        align-items: center;
+        gap: 10px;
+
+        background: rgba(255,255,255,0.05);
+
+        border: 1px solid var(--border-color);
+
+        padding: 5px 14px;
+
+        border-radius: 30px;
+    }
+
+    .user-pill img {
+        width: 28px;
+        height: 28px;
+
+        border-radius: 50%;
+
+        border: 1px solid var(--gold);
+    }
+
+    .user-pill span {
+        font-size: 13px;
+        font-weight: 800;
+        color: #fff;
+    }
+
+    .btn-logout {
+        background: none;
+        border: none;
+
+        color: #ff5555;
+
+        cursor: pointer;
+    }
+
+    /* ================= PAGE ================= */
+
+    .page-container {
+        padding-top: 155px;
+        padding-bottom: 80px;
+
+        max-width: 760px;
+
+        margin: 0 auto;
+
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    /* ================= TITLE ================= */
+
+    .page-title {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .page-title .icon {
+        width: 70px;
+        height: 70px;
+
+        margin: 0 auto 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 20px;
+
+        background: rgba(212,175,55,0.1);
+
+        border: 1px solid var(--border-color);
+
+        color: var(--gold);
+
+        font-size: 30px;
+
+        box-shadow: 0 0 30px rgba(212,175,55,0.1);
+    }
+
+    .page-title h1 {
+        color: #fff;
+
+        font-size: 34px;
+
+        font-weight: 900;
+
+        margin-bottom: 8px;
+    }
+
+    .page-title h1 span {
+        color: var(--gold);
+    }
+
+    .page-title p {
+        color: var(--text-sub);
+        font-size: 13px;
+    }
+
+    /* ================= FORM ================= */
+
+    .form-card {
+        background: var(--bg-card);
+
+        border: 1px solid var(--border-color);
+
+        border-radius: 24px;
+
+        padding: 35px;
+
+        backdrop-filter: blur(16px);
+
+        box-shadow:
+            0 20px 50px rgba(0,0,0,0.6);
+    }
+
+    .question {
+        margin-bottom: 25px;
+    }
+
+    .question-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        color: #fff;
+
+        font-size: 15px;
+
+        font-weight: 800;
+
+        margin-bottom: 10px;
+    }
+
+    .question-number {
+        width: 28px;
+        height: 28px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: rgba(212,175,55,0.12);
+
+        border: 1px solid var(--gold);
+
+        color: var(--gold);
+
+        border-radius: 8px;
+
+        font-size: 12px;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+
+        padding: 14px 16px;
+
+        background: rgba(7,12,22,0.85);
+
+        border: 1px solid rgba(212,175,55,0.2);
+
+        border-radius: 12px;
+
+        color: #fff;
+
+        outline: none;
+
+        font-size: 14px;
+
+        transition: 0.3s;
+    }
+
+    input:focus,
+    textarea:focus {
+        border-color: var(--cyan);
+
+        box-shadow:
+            0 0 15px rgba(0,240,255,0.15);
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .hint {
+        color: var(--text-sub);
+        font-size: 11px;
+        margin-top: 7px;
+    }
+
+    /* ================= PERSONAL INFO ================= */
+
+    .personal-grid {
+        display: grid;
+
+        grid-template-columns: 1.5fr 0.7fr;
+
+        gap: 12px;
+    }
+
+    /* ================= SPECIALTY ================= */
+
+    .specialties {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 12px;
+    }
+
+    .specialty-option {
+        position: relative;
+    }
+
+    .specialty-option input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .specialty-option label {
+        min-height: 95px;
+
+        padding: 15px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        text-align: center;
+
+        background: rgba(7,12,22,0.7);
+
+        border: 1px solid rgba(212,175,55,0.2);
+
+        border-radius: 14px;
+
+        color: var(--text-sub);
+
+        cursor: pointer;
+
+        transition: 0.3s;
+    }
+
+    .specialty-option label i {
+        font-size: 25px;
+        color: var(--gold);
+    }
+
+    .specialty-option input:checked + label {
+        border-color: var(--cyan);
+
+        background: rgba(0,240,255,0.08);
+
+        color: #fff;
+
+        box-shadow:
+            0 0 20px rgba(0,240,255,0.12);
+    }
+
+    /* ================= FILE UPLOAD ================= */
+
+    .file-upload {
+        position: relative;
+
+        border: 2px dashed rgba(212,175,55,0.35);
+
+        border-radius: 16px;
+
+        padding: 30px 20px;
+
+        text-align: center;
+
+        background: rgba(7,12,22,0.55);
+
+        transition: 0.3s;
+    }
+
+    .file-upload:hover {
+        border-color: var(--cyan);
+
+        background: rgba(0,240,255,0.04);
+    }
+
+    .file-upload i {
+        font-size: 40px;
+
+        color: var(--gold);
+
+        margin-bottom: 12px;
+    }
+
+    .file-upload h4 {
+        color: #fff;
+
+        font-size: 15px;
+
+        margin-bottom: 5px;
+    }
+
+    .file-upload p {
+        color: var(--text-sub);
+
+        font-size: 11px;
+
+        margin-bottom: 15px;
+    }
+
+    .file-button {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        background: linear-gradient(
+            135deg,
+            var(--gold-glow),
+            var(--gold)
+        );
+
+        color: #000;
+
+        padding: 10px 20px;
+
+        border-radius: 10px;
+
+        font-weight: 900;
+
+        font-size: 13px;
+
+        cursor: pointer;
+    }
+
+    #work-file {
+        display: none;
+    }
+
+    #file-name {
+        margin-top: 12px;
+
+        color: var(--cyan);
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        word-break: break-word;
+    }
+
+    /* ================= SUBMIT ================= */
+
+    .btn-submit {
+        width: 100%;
+
+        background: linear-gradient(
+            135deg,
+            var(--gold-glow),
+            var(--gold)
+        );
+
+        color: #000;
+
+        padding: 15px;
+
+        border: none;
+
+        border-radius: 12px;
+
+        font-weight: 900;
+
+        font-size: 16px;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+
+        box-shadow:
+            0 0 20px rgba(212,175,55,0.25);
+
+        margin-top: 5px;
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 0 30px rgba(212,175,55,0.5);
+    }
+
+    .required {
+        color: #ff5555;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 900px) {
 
         header {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 92%; max-width: 1280px;
-            background: rgba(10, 15, 26, 0.85); backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color); border-radius: 16px;
-            padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            width: 95%;
+            padding: 10px 15px;
         }
 
-        .brand-logo { display: flex; align-items: center; gap: 12px; }
-        .brand-logo i { font-size: 24px; color: var(--cyan); }
-        .brand-logo .title { font-weight: 900; font-size: 20px; color: #fff; }
+        .brand-logo .sub {
+            display: none;
+        }
 
-        .admin-badge { background: rgba(0, 240, 255, 0.15); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: 800; }
+        nav ul {
+            gap: 3px;
+        }
 
-        .page-container { padding-top: 140px; padding-bottom: 80px; max-width: 1200px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
-        
-        /* Stats Bar */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px; }
-        .stat-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 18px; padding: 20px; text-align: center; }
-        .stat-card h4 { color: var(--text-sub); font-size: 13px; font-weight: 700; margin-bottom: 8px; }
-        .stat-card .num { font-size: 32px; font-weight: 900; color: var(--cyan); }
+        .nav-link {
+            padding: 7px 8px;
+            font-size: 12px;
+        }
 
-        /* Control Panel Grid */
-        .admin-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 30px; margin-bottom: 30px; }
-        .admin-section h2 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .admin-section h2 i { color: var(--gold); }
+        .nav-link i {
+            display: none;
+        }
 
-        table { width: 100%; border-collapse: collapse; text-align: right; }
-        th, td { padding: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 14px; }
-        th { color: var(--gold); font-weight: 800; }
-        td { color: var(--text-main); }
+        .btn-neon-gold {
+            padding: 8px 12px;
+            font-size: 12px;
+        }
+    }
 
-        .btn-action { background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyan); color: var(--cyan); padding: 5px 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
-        .btn-action:hover { background: var(--cyan); color: #000; }
-    </style>
+    @media (max-width: 600px) {
+
+        .page-container {
+            padding-top: 130px;
+        }
+
+        .form-card {
+            padding: 22px 18px;
+        }
+
+        .page-title h1 {
+            font-size: 27px;
+        }
+
+        .personal-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .specialties {
+            grid-template-columns: 1fr;
+        }
+
+        .specialty-option label {
+            min-height: 65px;
+            flex-direction: row;
+        }
+    }
+</style>
+```
+
 </head>
+
 <body>
 
-    <header>
-        <div class="brand-logo">
-            <i class="fa-solid fa-shield-halved"></i>
-            <div>
-                <span class="title">PMT ADMIN PANEL</span>
-            </div>
-        </div>
-        <div class="admin-badge"><i class="fa-solid fa-user-check"></i> المالك: yx8q</div>
-        <a href="index.html" style="color: var(--gold); text-decoration: none; font-weight: 700; font-size: 13px;"><i class="fa-solid fa-arrow-right"></i> العودة للموقع</a>
-    </header>
+<header>
 
-    <div class="page-container">
-        <!-- Stats Bar -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h4>إجمالي الطلبات</h4>
-                <div class="num">12</div>
-            </div>
-            <div class="stat-card">
-                <h4>أعضاء الفريق النشطين</h4>
-                <div class="num">8</div>
-            </div>
-            <div class="stat-card">
-                <h4>المهام المنجزة</h4>
-                <div class="num">45</div>
-            </div>
-            <div class="stat-card">
-                <h4>حالة السيرفر</h4>
-                <div class="num" style="color: #00ff88;">متصل</div>
-            </div>
-        </div>
+```
+<div class="brand-logo">
+    <i class="fa-solid fa-crown"></i>
 
-        <!-- Section: Application Requests -->
-        <div class="admin-section">
-            <h2><i class="fa-solid fa-file-signature"></i> طلبت التقديم المعلقة</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>اسم المستخدم</th>
-                        <th>التخصص المطلوب</th>
-                        <th>الحالة</th>
-                        <th>التحكم</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Oscar_Marcus</td>
-                        <td>مصور ميداني</td>
-                        <td><span style="color: var(--gold);">قيد المراجعة</span></td>
-                        <td><button class="btn-action">قبول الطلب</button></td>
-                    </tr>
-                    <tr>
-                        <td>Gamer_123</td>
-                        <td>مصمم / مونتير</td>
-                        <td><span style="color: var(--gold);">قيد المراجعة</span></td>
-                        <td><button class="btn-action">قبول الطلب</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div>
+        <span class="title">PMT SYSTEM</span>
+        <span class="sub">MEDIA TEAM PLATFORM</span>
+    </div>
+</div>
+
+<nav>
+    <ul>
+
+        <li>
+            <a href="index.html" class="nav-link">
+                <i class="fa-solid fa-house"></i>
+                الرئيسية
+            </a>
+        </li>
+
+        <li>
+            <a href="about.html" class="nav-link">
+                <i class="fa-solid fa-users"></i>
+                من نحن
+            </a>
+        </li>
+
+        <li>
+            <a href="tasks.html" class="nav-link">
+                <i class="fa-solid fa-list-check"></i>
+                المهام
+            </a>
+        </li>
+
+        <li>
+            <a href="apply.html" class="btn-neon-gold">
+                التقديم
+            </a>
+        </li>
+
+        <li>
+            <a href="admin.html"
+               id="admin-tab"
+               class="nav-link">
+
+                <i class="fa-solid fa-lock"></i>
+                لوحة الإدارة
+
+            </a>
+        </li>
+
+        <li id="auth-box">
+
+            <button
+                id="login-btn"
+                class="btn-discord"
+                onclick="loginWithDiscord()">
+
+                <i class="fa-brands fa-discord"></i>
+                تسجيل الدخول
+
+            </button>
+
+            <div id="user-pill" class="user-pill">
+
+                <img
+                    id="user-avatar"
+                    src="https://cdn.discordapp.com/embed/avatars/0.png">
+
+                <span id="user-name"></span>
+
+                <button
+                    class="btn-logout"
+                    onclick="logout()">
+
+                    <i class="fa-solid fa-power-off"></i>
+
+                </button>
+
+            </div>
+
+        </li>
+
+    </ul>
+</nav>
+```
+
+</header>
+
+<div class="page-container">
+
+```
+<div class="page-title">
+
+    <div class="icon">
+        <i class="fa-solid fa-file-signature"></i>
     </div>
 
-    <script>
-        const ADMIN_USERS = ['yx8q'];
+    <h1>
+        التقديم على <span>فريق الإعلام</span>
+    </h1>
 
-        // حماية الصفحة ومنع الزوار العاديين تلقائياً
-        (function protectAdminPage() {
-            const saved = localStorage.getItem('discord_user');
-            if (!saved) {
-                alert("عذراً، يجب تسجيل الدخول بالحساب المصرح له أولاً!");
-                window.location.href = "index.html";
-                return;
-            }
+    <p>
+        يرجى الإجابة على جميع الأسئلة التالية بدقة، وسيتم مراجعة طلبك من قبل إدارة الفريق.
+    </p>
 
-            const user = JSON.parse(saved);
-            if (!ADMIN_USERS.includes(user.name.toLowerCase())) {
-                alert("وصول مرفوض! هذه الصفحة مخصصة للمالك والإدارة فقط.");
-                window.location.href = "index.html";
-            }
-        })();
-    </script>
+</div>
+
+
+<div class="form-card">
+
+    <form id="application-form"
+          onsubmit="submitApplication(event)">
+
+        <!-- السؤال الأول -->
+
+        <div class="question">
+
+            <div class="question-label">
+
+                <span class="question-number">1</span>
+
+                <span>
+                    معلوماتك الشخصية
+                    <span class="required">*</span>
+                </span>
+
+            </div>
+
+            <div class="personal-grid">
+
+                <input
+                    type="text"
+                    id="real-name"
+                    placeholder="اسمك"
+                    required>
+
+                <input
+                    type="number"
+                    id="age"
+                    placeholder="عمرك"
+                    min="13"
+                    max="100"
+                    required>
+
+            </div>
+
+            <input
+                type="text"
+                id="country"
+                placeholder="من وين؟ مثال: العراق"
+                required
+                style="margin-top:12px;">
+
+        </div>
+
+
+        <!-- السؤال الثاني -->
+
+        <div class="question">
+
+            <div class="question-label">
+
+                <span class="question-number">2</span>
+
+                <span>
+                    اسم شخصيتك داخل اللعبة
+                    <span class="required">*</span>
+                </span>
+
+            </div>
+
+            <input
+                type="text"
+                id="character-name"
+                placeholder="اكتب اسم شخصيتك داخل اللعبة"
+                required>
+
+        </div>
+
+
+        <!-- السؤال الثالث -->
+
+        <div class="question">
+
+            <div class="question-label">
+
+                <span class="question-number">3</span>
+
+                <span>
+                    ما تخصصك؟
+                    <span class="required">*</span>
+                </span>
+
+            </div>
+
+            <div class="specialties">
+
+                <div class="specialty-option">
+
+                    <input
+                        type="radio"
+                        name="specialty"
+                        id="photography"
+                        value="تصوير"
+                        required>
+
+                    <label for="photography">
+
+                        <i class="fa-solid fa-camera"></i>
+
+                        <span>تصوير</span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="specialty-option">
+
+                    <input
+                        type="radio"
+                        name="specialty"
+                        id="acting"
+                        value="تمثيل">
+
+                    <label for="acting">
+
+                        <i class="fa-solid fa-masks-theater"></i>
+
+                        <span>تمثيل</span>
+
+                    </label>
+
+                </div>
+
+
+                <div class="specialty-option">
+
+                    <input
+                        type="radio"
+                        name="specialty"
+                        id="editing"
+                        value="مونتاج">
+
+                    <label for="editing">
+
+                        <i class="fa-solid fa-film"></i>
+
+                        <span>مونتاج</span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- السؤال الرابع -->
+
+        <div class="question">
+
+            <div class="question-label">
+
+                <span class="question-number">4</span>
+
+                <span>
+                    لماذا تريد الانضمام إلى فريق الإعلام؟
+                    <span class="required">*</span>
+                </span>
+
+            </div>
+
+            <textarea
+                id="reason"
+                placeholder="اكتب سبب رغبتك بالانضمام إلى الفريق..."
+                required></textarea>
+
+        </div>
+
+
+        <!-- السؤال الخامس -->
+
+        <div class="question">
+
+            <div class="question-label">
+
+                <span class="question-number">5</span>
+
+                <span>
+                    أرفق لنا نموذجاً من عملك
+                    <span class="required">*</span>
+                </span>
+
+            </div>
+
+            <div class="file-upload">
+
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                <h4>
+                    ارفع نموذج من أعمالك
+                </h4>
+
+                <p>
+                    يمكنك رفع صورة أو فيديو أو ملف من جهازك
+                </p>
+
+                <label
+                    for="work-file"
+                    class="file-button">
+
+                    <i class="fa-solid fa-folder-open"></i>
+                    اختيار ملف
+
+                </label>
+
+                <input
+                    type="file"
+                    id="work-file"
+                    accept="image/*,video/*,.pdf,.zip,.rar,.doc,.docx"
+                    required
+                    onchange="showFileName()">
+
+                <div id="file-name">
+                    لم يتم اختيار أي ملف
+                </div>
+
+            </div>
+
+            <div class="hint">
+                الصيغ المدعومة: صور، فيديو، PDF، ZIP، RAR، Word.
+            </div>
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="btn-submit">
+
+            <i class="fa-solid fa-paper-plane"></i>
+
+            إرسال طلب التقديم
+
+        </button>
+
+    </form>
+
+</div>
+```
+
+</div>
+
+<script>
+
+    const ADMIN_USERS = ['yx8q'];
+
+
+    /* ================= SESSION ================= */
+
+    window.onload = checkSession;
+
+
+    function checkSession() {
+
+        const saved =
+            localStorage.getItem('discord_user');
+
+        if (!saved) return;
+
+        const user =
+            JSON.parse(saved);
+
+        document.getElementById('login-btn')
+            .style.display = 'none';
+
+        const pill =
+            document.getElementById('user-pill');
+
+        pill.style.display = 'flex';
+
+        document.getElementById('user-avatar')
+            .src = user.avatar;
+
+        document.getElementById('user-name')
+            .innerText = user.name;
+
+
+        const adminTab =
+            document.getElementById('admin-tab');
+
+        if (
+            adminTab &&
+            ADMIN_USERS.includes(
+                user.name.toLowerCase()
+            )
+        ) {
+
+            adminTab.style.display = 'flex';
+
+        }
+
+    }
+
+
+    /* ================= LOGIN ================= */
+
+    function loginWithDiscord() {
+
+        const username =
+            prompt(
+                "أدخل اسم حسابك في ديسكورد:",
+                "yx8q"
+            );
+
+        if (
+            username &&
+            username.trim() !== ""
+        ) {
+
+            localStorage.setItem(
+                'discord_user',
+
+                JSON.stringify({
+
+                    name: username.trim(),
+
+                    avatar:
+                    'https://cdn.discordapp.com/embed/avatars/0.png'
+
+                })
+            );
+
+            checkSession();
+
+        }
+
+    }
+
+
+    /* ================= LOGOUT ================= */
+
+    function logout() {
+
+        localStorage.removeItem(
+            'discord_user'
+        );
+
+        location.reload();
+
+    }
+
+
+    /* ================= FILE NAME ================= */
+
+    function showFileName() {
+
+        const fileInput =
+            document.getElementById('work-file');
+
+        const fileName =
+            document.getElementById('file-name');
+
+
+        if (fileInput.files.length > 0) {
+
+            const file =
+                fileInput.files[0];
+
+            fileName.innerHTML =
+                '<i class="fa-solid fa-check"></i> ' +
+                file.name;
+
+        } else {
+
+            fileName.innerText =
+                'لم يتم اختيار أي ملف';
+
+        }
+
+    }
+
+
+    /* ================= SUBMIT ================= */
+
+    function submitApplication(event) {
+
+        event.preventDefault();
+
+
+        const realName =
+            document.getElementById('real-name').value.trim();
+
+        const age =
+            document.getElementById('age').value;
+
+        const country =
+            document.getElementById('country').value.trim();
+
+        const characterName =
+            document.getElementById('character-name').value.trim();
+
+        const specialty =
+            document.querySelector(
+                'input[name="specialty"]:checked'
+            );
+
+        const reason =
+            document.getElementById('reason').value.trim();
+
+        const fileInput =
+            document.getElementById('work-file');
+
+
+        if (!specialty) {
+
+            alert(
+                'يرجى اختيار تخصصك.'
+            );
+
+            return;
+
+        }
+
+
+        if (!fileInput.files.length) {
+
+            alert(
+                'يرجى إرفاق نموذج من عملك.'
+            );
+
+            return;
+
+        }
+
+
+        const application = {
+
+            realName: realName,
+
+            age: age,
+
+            country: country,
+
+            characterName: characterName,
+
+            specialty: specialty.value,
+
+            reason: reason,
+
+            fileName:
+                fileInput.files[0].name,
+
+            status: 'قيد المراجعة',
+
+            date:
+                new Date().toLocaleString('ar-IQ')
+
+        };
+
+
+        /*
+         * حفظ بيانات الطلب محلياً مؤقتاً.
+         * سيتم ربطها لاحقاً بلوحة الإدارة وقاعدة البيانات.
+         */
+
+        const applications =
+            JSON.parse(
+                localStorage.getItem(
+                    'applications'
+                ) || '[]'
+            );
+
+
+        applications.push(application);
+
+
+        localStorage.setItem(
+            'applications',
+            JSON.stringify(applications)
+        );
+
+
+        alert(
+            'تم إرسال طلبك بنجاح!\\n\\nسيتم مراجعة الطلب من قبل إدارة فريق الإعلام.'
+        );
+
+
+        document.getElementById(
+            'application-form'
+        ).reset();
+
+
+        document.getElementById(
+            'file-name'
+        ).innerText =
+            'لم يتم اختيار أي ملف';
+
+    }
+
+</script>
+
 </body>
 </html>
