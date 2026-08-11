@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PMT | المنصة الإعلامية المتقدمة</title>
-    <!-- خط الجوهرة Cairo مع أيقونات FontAwesome -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -35,7 +34,7 @@
             background-attachment: fixed;
         }
 
-        /* --- Real Cyber Splash Screen --- */
+        /* --- Cyber Splash Screen --- */
         #splash-screen {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -61,22 +60,23 @@
             width: 90%;
         }
 
-        .splash-icon {
-            font-size: 60px;
-            background: linear-gradient(135deg, var(--gold), var(--cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
+        .splash-logo-img {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
             animation: pulseGlow 2s infinite ease-in-out;
         }
 
         @keyframes pulseGlow {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); }
-            50% { transform: scale(1.08); filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.6)); }
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.4)); }
+            50% { transform: scale(1.06); filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.6)); }
         }
 
-        .splash-title { font-size: 28px; font-weight: 900; letter-spacing: 1px; color: #fff; }
-        .splash-subtitle { font-size: 13px; color: var(--text-sub); margin-bottom: 30px; }
+        .splash-title { font-size: 26px; font-weight: 900; letter-spacing: 1px; color: #fff; }
+        .splash-subtitle { font-size: 12px; color: var(--gold); margin-bottom: 25px; font-weight: 700; }
 
         .progress-track {
             width: 100%;
@@ -98,7 +98,7 @@
 
         .status-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--text-sub); }
 
-        /* --- Header / Glass Navigation --- */
+        /* --- Glass Navigation --- */
         header {
             position: fixed;
             top: 20px;
@@ -110,7 +110,7 @@
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
-            padding: 12px 30px;
+            padding: 10px 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -118,10 +118,18 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        .brand-logo { display: flex; align-items: center; gap: 12px; }
-        .brand-logo i { font-size: 24px; color: var(--gold); }
-        .brand-logo .title { font-weight: 900; font-size: 20px; color: #fff; letter-spacing: 0.5px; }
-        .brand-logo .sub { font-size: 10px; color: var(--cyan); display: block; font-weight: 700; }
+        .brand-logo { display: flex; align-items: center; gap: 14px; }
+        .brand-logo img {
+            width: 46px;
+            height: 46px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.5));
+            transition: 0.3s;
+        }
+        .brand-logo:hover img { transform: rotate(5deg) scale(1.05); }
+
+        .brand-logo .title { font-weight: 900; font-size: 19px; color: #fff; letter-spacing: 0.5px; }
+        .brand-logo .sub { font-size: 9px; color: var(--gold); display: block; font-weight: 800; letter-spacing: 0.5px; }
 
         nav ul { display: flex; list-style: none; gap: 8px; align-items: center; }
 
@@ -141,12 +149,10 @@
         .nav-link:hover, .nav-link.active {
             color: #fff;
             background: rgba(255, 255, 255, 0.05);
-            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.02);
         }
 
         .nav-link.active { border-bottom: 2px solid var(--gold); }
 
-        /* Special Admin Tab */
         #admin-tab {
             background: rgba(0, 240, 255, 0.1);
             color: var(--cyan);
@@ -156,7 +162,6 @@
         }
         #admin-tab:hover { background: var(--cyan); color: #000; }
 
-        /* Buttons Styling */
         .btn-neon-gold {
             background: linear-gradient(135deg, var(--gold-glow), var(--gold));
             color: #000;
@@ -186,7 +191,6 @@
         }
         .btn-discord:hover { background: #4752C4; transform: translateY(-2px); }
 
-        /* User Profile Pill */
         .user-pill {
             display: none;
             align-items: center;
@@ -211,6 +215,14 @@
             padding-right: 20px;
         }
 
+        .hero-logo-main {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.35));
+        }
+
         .badge-status {
             display: inline-flex;
             align-items: center;
@@ -227,9 +239,9 @@
         .badge-status .dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
 
         .hero h1 {
-            font-size: 56px;
+            font-size: 52px;
             font-weight: 900;
-            line-height: 1.2;
+            line-height: 1.25;
             margin-bottom: 20px;
             color: #fff;
         }
@@ -240,9 +252,9 @@
         }
 
         .hero p {
-            font-size: 18px;
+            font-size: 17px;
             color: var(--text-sub);
-            max-width: 700px;
+            max-width: 720px;
             margin: 0 auto 40px;
             line-height: 1.8;
         }
@@ -250,9 +262,9 @@
         /* Hologram Grid Cards */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
-            margin-top: 50px;
+            margin-top: 40px;
         }
 
         .glass-card {
@@ -266,25 +278,15 @@
             position: relative;
             overflow: hidden;
         }
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0;
-            transition: 0.4s;
-        }
         .glass-card:hover {
             transform: translateY(-8px);
             border-color: var(--gold);
             box-shadow: 0 15px 35px rgba(0,0,0,0.6), 0 0 20px rgba(212, 175, 55, 0.15);
         }
-        .glass-card:hover::before { opacity: 1; }
 
-        .glass-card i { font-size: 36px; color: var(--gold); margin-bottom: 20px; display: block; }
+        .glass-card i { font-size: 34px; color: var(--gold); margin-bottom: 20px; display: block; }
         .glass-card h3 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 10px; }
-        .glass-card p { font-size: 14px; color: var(--text-sub); line-height: 1.6; }
-
+        .glass-card p { font-size: 13.5px; color: var(--text-sub); line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -292,16 +294,16 @@
     <!-- Cyber Splash Screen -->
     <div id="splash-screen">
         <div class="splash-box">
-            <i class="fa-solid fa-shield-halved splash-icon"></i>
-            <div class="splash-title">PMT SYSTEM</div>
-            <div class="splash-subtitle">المنصة الإعلامية الموحدة V2.5</div>
+            <img src="logo.png" alt="PMT Logo" class="splash-logo-img">
+            <div class="splash-title">POLICE MEDIA TEAM</div>
+            <div class="splash-subtitle">LOS SANTOS POLICE DEPARTMENT</div>
 
             <div class="progress-track">
                 <div class="progress-fill" id="splash-fill"></div>
             </div>
 
             <div class="status-row">
-                <span id="splash-status">جاري تهيئة النظام...</span>
+                <span id="splash-status">جاري الاتصال بقاعدة البيانات...</span>
                 <span id="splash-percent">0%</span>
             </div>
         </div>
@@ -310,10 +312,10 @@
     <!-- Navigation Bar -->
     <header>
         <div class="brand-logo">
-            <i class="fa-solid fa-crown"></i>
+            <img src="logo.png" alt="PMT Emblem">
             <div>
-                <span class="title">PMT SYSTEM</span>
-                <span class="sub">MEDIA TEAM PLATFORM</span>
+                <span class="title">POLICE MEDIA TEAM</span>
+                <span class="sub">LSPD MEDIA DEPARTMENT</span>
             </div>
         </div>
 
@@ -324,7 +326,6 @@
                 <li><a href="tasks.html" class="nav-link"><i class="fa-solid fa-list-check"></i> المهام</a></li>
                 <li><a href="apply.html" class="btn-neon-gold">التقديم</a></li>
                 
-                <!-- تبويب لوحة الإدارة الحصري لـ yx8q -->
                 <li><a href="admin.html" id="admin-tab" class="nav-link"><i class="fa-solid fa-lock"></i> لوحة الإدارة</a></li>
 
                 <li id="auth-box">
@@ -344,32 +345,40 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <img src="logo.png" alt="PMT Emblem Large" class="hero-logo-main">
+
         <div class="badge-status">
-            <span class="dot"></span> النظام يعمل بكامل الكفاءة البرمجية
+            <span class="dot"></span> المنصة الإعلامية الرسمية لقسم الشرطة
         </div>
 
-        <h1>الجيل الجديد من إدارة <br><span>التغطية الإعلامية الاحترافية</span></h1>
+        <h1>فريق الإعلام والتغطية الميدانية <br><span>POLICE MEDIA TEAM</span></h1>
         
-        <p>نظام موحد ومطور خصيصاً للتنظيم المباشر، إدارة المهام الميدانية، والتحكم بالصلاحيات بأعلى درجات الأمان والسرعة.</p>
+        <p>التوثيق الميداني، البث المباشر، وإنتاج المحتوى الإعلامي الرسمي الخاص بقسم شرطة لوس سانتوس (LSPD) وفق أعلى المعايير.</p>
 
         <!-- Dynamic Grid Showcase -->
         <div class="cards-grid">
             <div class="glass-card">
-                <i class="fa-solid fa-bolt-lightning"></i>
-                <h3>تغطية إعلامية فورية</h3>
-                <p>متابعة وتحديث المستجدات والأحداث الإعلامية أولاً بأول بتقنيات بث ومزامنة مباشرة.</p>
+                <i class="fa-solid fa-camera"></i>
+                <h3>التوثيق والأرشيف (Documentation)</h3>
+                <p>التقاط وتوثيق كل العمليات والفعاليات الميدانية وتخزينها في السجل الإعلامي الرسمي.</p>
             </div>
 
             <div class="glass-card">
-                <i class="fa-solid fa-chart-line"></i>
-                <h3>إدارة المهام الذكية</h3>
-                <p>توزيع الأدوار على أفراد الفريق ومتابعة نسبة الإنجاز والتقارير اليومية بدقة.</p>
+                <i class="fa-solid fa-clapperboard"></i>
+                <h3>صناعة المحتوى (Content Production)</h3>
+                <p>إنتاج مقاطع الأفلام الوثائقية والإعلانات الميدانية والمونتاج الاحترافي عالي الجودة.</p>
             </div>
 
             <div class="glass-card">
-                <i class="fa-solid fa-user-shield"></i>
-                <h3>حماية وصلاحيات محكمة</h3>
-                <p>نظام وصول متقدم يضمن توفير أدوات التحكم والقيادة للقيادات والإدارة فقط.</p>
+                <i class="fa-solid fa-tower-broadcast"></i>
+                <h3>البث والإعلام (Broadcast & Media)</h3>
+                <p>نقل الفعاليات والمؤتمرات المباشرة وإدارة القنوات الإعلامية الرسمية للفريق.</p>
+            </div>
+
+            <div class="glass-card">
+                <i class="fa-solid fa-plane-slant"></i>
+                <h3>التغطية الجوية (Aerial Coverage)</h3>
+                <p>استخدام تقنيات التصوير الجوي والدرون لتغطية العمليات الكبرى والفعاليات المفتوحة.</p>
             </div>
         </div>
     </section>
@@ -377,7 +386,6 @@
     <script>
         const ADMIN_USERS = ['yx8q'];
 
-        // تشغيل شاشة التحميل الرسومية السريعة
         window.addEventListener('DOMContentLoaded', () => {
             const fill = document.getElementById('splash-fill');
             const percent = document.getElementById('splash-percent');
@@ -386,10 +394,10 @@
 
             let p = 0;
             const steps = [
-                "جاري الاتصال بالسيرفر المركزي...",
                 "فحص بروتوكولات الأمان...",
-                "التحقق من جلسة المستخدم...",
-                "تم تجهيز الواجهة بنجاح!"
+                "تحميل الشعار والهوية الرسمية...",
+                "فحص جلسة المستخدم...",
+                "تم تجهيز الواجهة!"
             ];
 
             const timer = setInterval(() => {
@@ -416,7 +424,6 @@
             }, 80);
         });
 
-        // تسجيل الدخول بالديسكورد
         function loginWithDiscord() {
             const username = prompt("أدخل اسم حسابك في ديسكورد للتسجيل:", "yx8q");
             if (username && username.trim() !== "") {
@@ -434,7 +441,6 @@
             location.reload();
         }
 
-        // فحص حالة الجلسة وتفعيل تبويب الإدارة
         function checkSession() {
             const saved = localStorage.getItem('discord_user');
             if (saved) {
@@ -446,7 +452,6 @@
                 document.getElementById('user-avatar').src = user.avatar;
                 document.getElementById('user-name').innerText = user.name;
 
-                // تفعيل لوحة الإدارة حصرياً للمالك yx8q
                 const adminTab = document.getElementById('admin-tab');
                 if (adminTab) {
                     if (ADMIN_USERS.includes(user.name.toLowerCase())) {
