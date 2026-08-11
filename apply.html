@@ -2,66 +2,177 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>فريق الإعلام | التقديم</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMT | التقديم على الفريق</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root { --primary-dark: #070e17; --secondary-dark: #121f30; --gold: #d4af37; --text-light: #e0e0e0; --white: #ffffff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background-color: var(--primary-dark); color: var(--text-light); }
-        header { background-color: rgba(7, 14, 23, 0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
-        .logo h1 { color: var(--gold); font-size: 24px; font-weight: 800; }
-        .logo span { font-size: 12px; color: var(--text-light); display: block; }
-        nav ul { list-style: none; display: flex; gap: 30px; align-items: center; }
-        nav ul li a { text-decoration: none; color: var(--white); font-weight: 600; font-size: 15px; }
-        nav ul li a:hover, nav ul li a.active { color: var(--gold); }
-        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark); padding: 8px 22px; border-radius: 4px; font-weight: 800; text-decoration: none; }
-        .page-content { min-height: 100vh; padding: 130px 20px 50px; display: flex; flex-direction: column; align-items: center; }
-        .form-box { width: 100%; max-width: 600px; background: var(--secondary-dark); padding: 30px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.2); margin-top: 20px; }
-        .form-box h2 { color: var(--gold); text-align: center; margin-bottom: 25px; }
-        .form-group { margin-bottom: 20px; text-align: right; }
-        .form-group label { display: block; margin-bottom: 8px; color: var(--white); font-weight: 600; }
-        .form-group input, .form-group textarea { width: 100%; padding: 10px; background: var(--primary-dark); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 4px; color: #fff; font-size: 14px; }
-        .submit-btn { width: 100%; padding: 12px; background: var(--gold); color: var(--primary-dark); font-weight: 800; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
-        .submit-btn:hover { background: #f3d573; }
-        footer { background-color: #04080d; padding: 20px 50px; text-align: center; font-size: 13px; width: 100%; }
+        :root { 
+            --bg-main: #030712; 
+            --bg-card: rgba(17, 24, 39, 0.7); 
+            --border-color: rgba(212, 175, 55, 0.25);
+            --gold: #f3d573; 
+            --gold-glow: #d4af37;
+            --cyan: #00f0ff; 
+            --cyan-glow: rgba(0, 240, 255, 0.4);
+            --text-main: #f3f4f6; 
+            --text-sub: #9ca3af;
+            --discord: #5865F2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; user-select: none; }
+        
+        body { 
+            background-color: var(--bg-main); color: var(--text-main); min-height: 100vh; overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.06) 0%, transparent 45%);
+            background-attachment: fixed;
+        }
+
+        header {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 1280px;
+            background: rgba(10, 15, 26, 0.75); backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;
+            padding: 12px 30px; display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+        }
+
+        .brand-logo { display: flex; align-items: center; gap: 12px; }
+        .brand-logo i { font-size: 24px; color: var(--gold); }
+        .brand-logo .title { font-weight: 900; font-size: 20px; color: #fff; }
+        .brand-logo .sub { font-size: 10px; color: var(--cyan); display: block; font-weight: 700; }
+
+        nav ul { display: flex; list-style: none; gap: 8px; align-items: center; }
+        .nav-link { color: var(--text-sub); text-decoration: none; padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 700; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .nav-link:hover, .nav-link.active { color: #fff; background: rgba(255, 255, 255, 0.05); }
+
+        #admin-tab { background: rgba(0, 240, 255, 0.1); color: var(--cyan); border: 1px solid var(--cyan-glow); display: none; }
+        .btn-neon-gold { background: linear-gradient(135deg, var(--gold-glow), var(--gold)); color: #000; font-weight: 800; padding: 8px 20px; border-radius: 10px; text-decoration: none; }
+        .btn-discord { background: var(--discord); color: #fff; border: none; padding: 9px 18px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        
+        .user-pill { display: none; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); padding: 5px 14px; border-radius: 30px; }
+        .user-pill img { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--gold); }
+        .user-pill span { font-size: 13px; font-weight: 800; color: #fff; }
+        .btn-logout { background: none; border: none; color: #ff5555; cursor: pointer; }
+
+        /* Form Card */
+        .page-container { padding-top: 150px; padding-bottom: 80px; max-width: 650px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+        .form-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 40px; backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .form-card h2 { font-size: 28px; font-weight: 900; color: #fff; text-align: center; margin-bottom: 8px; }
+        .form-card h2 span { color: var(--gold); }
+        .form-card p { text-align: center; color: var(--text-sub); font-size: 13px; margin-bottom: 30px; }
+
+        .input-group { margin-bottom: 20px; text-align: right; }
+        .input-group label { display: block; font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 8px; }
+        .input-group input, .input-group textarea, .input-group select {
+            width: 100%; padding: 14px; background: rgba(7, 12, 22, 0.8); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 12px; color: #fff; outline: none; font-size: 14px; transition: 0.3s;
+        }
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus { border-color: var(--cyan); box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
+
+        .btn-submit {
+            width: 100%; background: linear-gradient(135deg, var(--gold-glow), var(--gold)); color: #000; padding: 14px; border: none; border-radius: 12px; font-weight: 900; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); margin-top: 10px;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
     </style>
 </head>
 <body>
+
     <header>
-        <div class="logo"><h1>PMT</h1><span>فريق الإعلام | LSPD</span></div>
+        <div class="brand-logo">
+            <i class="fa-solid fa-crown"></i>
+            <div>
+                <span class="title">PMT SYSTEM</span>
+                <span class="sub">MEDIA TEAM PLATFORM</span>
+            </div>
+        </div>
         <nav>
             <ul>
-                <li><a href="index.html">الصفحة الرئيسية</a></li>
-                <li><a href="about.html">من نحن</a></li>
-                <li><a href="tasks.html">مهام الفريق</a></li>
-                <li><a href="apply.html" class="btn-gold active">التقديم</a></li>
+                <li><a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> الرئيسية</a></li>
+                <li><a href="about.html" class="nav-link"><i class="fa-solid fa-users"></i> من نحن</a></li>
+                <li><a href="tasks.html" class="nav-link"><i class="fa-solid fa-list-check"></i> المهام</a></li>
+                <li><a href="apply.html" class="btn-neon-gold">التقديم</a></li>
+                <li><a href="admin.html" id="admin-tab" class="nav-link"><i class="fa-solid fa-lock"></i> لوحة الإدارة</a></li>
+
+                <li id="auth-box">
+                    <button id="login-btn" class="btn-discord" onclick="loginWithDiscord()"><i class="fa-brands fa-discord"></i> تسجيل الدخول</button>
+                    <div id="user-pill" class="user-pill">
+                        <img id="user-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar">
+                        <span id="user-name"></span>
+                        <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-power-off"></i></button>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
-    <div class="page-content">
-        <div class="form-box">
-            <h2>استمارة التقديم للفريق</h2>
-            <form onsubmit="event.preventDefault(); alert('تم إرسال الطلب بنجاح!');">
-                <div class="form-group">
-                    <label>الاسم الكامل (Character Name):</label>
-                    <input type="text" placeholder="أدخل اسم الشخصية" required>
+
+    <div class="page-container">
+        <div class="form-card">
+            <h2>الانضمام إلى <span>فريق الإعلام</span></h2>
+            <p>يرجى إدخال البيانات بدقة، وسيتم مراجعة الطلب من قِبل الإدارة العليا.</p>
+
+            <form onsubmit="submitApplication(event)">
+                <div class="input-group">
+                    <label>الاسم أو اليوزر بالديسكورد:</label>
+                    <input type="text" id="app-name" required placeholder="مثال: yx8q">
                 </div>
-                <div class="form-group">
-                    <label>معرف  الديسكورد (Discord Tag):</label>
-                    <input type="text" placeholder="Username" required>
+
+                <div class="input-group">
+                    <label>التخصص المطلوب:</label>
+                    <select id="app-role">
+                        <option value="photographer">مصور ميداني (Screenshots/Video)</option>
+                        <option value="editor">مصمم / مونتير (Video & Image Editing)</option>
+                        <option value="writer">كاتب محتوى وتقارير إخبارية</option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label>التخصص / الخبرة (مونتاج، تصوير، تمثيل...):</label>
-                    <input type="text" required>
+
+                <div class="input-group">
+                    <label>خبراتك وسبب رغبتك بالانضمام:</label>
+                    <textarea id="app-desc" rows="4" required placeholder="اكتب نبذة مختصرة عن أعمالك ورغبتك..."></textarea>
                 </div>
-                <div class="form-group">
-                    <label>نبذة عن سبب رغبتك بالانضمام:</label>
-                    <textarea rows="4" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">إرسال الطلب</button>
+
+                <button type="submit" class="btn-submit"><i class="fa-solid fa-paper-plane"></i> إرسال الطلب رسمياً</button>
             </form>
         </div>
     </div>
-    <footer><p>&copy; 2026 جميع الحقوق محفوظة لـ فريق الإعلام - PMT.</p></footer>
+
+    <script>
+        const ADMIN_USERS = ['yx8q'];
+        window.onload = checkSession;
+
+        function checkSession() {
+            const saved = localStorage.getItem('discord_user');
+            if (saved) {
+                const user = JSON.parse(saved);
+                document.getElementById('login-btn').style.display = 'none';
+                const pill = document.getElementById('user-pill');
+                pill.style.display = 'flex';
+                document.getElementById('user-avatar').src = user.avatar;
+                document.getElementById('user-name').innerText = user.name;
+                document.getElementById('app-name').value = user.name;
+
+                const adminTab = document.getElementById('admin-tab');
+                if (adminTab && ADMIN_USERS.includes(user.name.toLowerCase())) {
+                    adminTab.style.display = 'flex';
+                }
+            }
+        }
+
+        function submitApplication(e) {
+            e.preventDefault();
+            alert("تم إرسال طلب الانضمام بنجاح! سيتم فحص طلبك في لوحة الإدارة.");
+            window.location.href = "index.html";
+        }
+
+        function loginWithDiscord() {
+            const username = prompt("أدخل اسم حسابك في ديسكورد:", "yx8q");
+            if (username && username.trim() !== "") {
+                localStorage.setItem('discord_user', JSON.stringify({ name: username.trim(), avatar: 'https://cdn.discordapp.com/embed/avatars/0.png' }));
+                checkSession();
+            }
+        }
+        function logout() { localStorage.removeItem('discord_user'); location.reload(); }
+    </script>
 </body>
 </html>
