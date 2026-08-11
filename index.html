@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فريق الإعلام | الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { 
+            --primary-dark: #070e17; 
+            --secondary-dark: #121f30; 
+            --gold: #d4af37; 
+            --gold-light: #f3d573;
+            --light-blue: #00e1ff; 
+            --text-light: #e0e0e0; 
+            --white: #ffffff; 
+            --discord-color: #5865F2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--primary-dark); color: var(--text-light); overflow-x: hidden; }
+
+        /* ==================== شاشة التحميل (Loading Screen) ==================== */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #121f30 0%, #04080d 100%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader-content {
+            text-align: center;
+            position: relative;
+        }
+
+        .loader-logo-wrapper {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loader-logo {
+            width: 130px;
+            height: 130px;
+            background: url('image.png') no-repeat center;
+            background-size: contain;
+            border-radius: 50%;
+            z-index: 2;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
+        }
+
+        .spinner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top: 3px solid var(--gold);
+            border-right: 3px solid var(--light-blue);
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loader-title {
+            color: var(--gold);
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .loader-sub {
+            color: var(--text-light);
+            font-size: 13px;
+            margin-bottom: 25px;
+            opacity: 0.8;
+        }
+
+        .progress-bar-container {
+            width: 260px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 0 auto;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 10px rgba(0, 225, 255, 0.2);
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold) 0%, var(--light-blue) 100%);
+            border-radius: 10px;
+            animation: fillProgress 2s ease-in-out forwards;
+        }
+
+        @keyframes fillProgress {
+            0% { width: 0%; }
+            50% { width: 65%; }
+            100% { width: 100%; }
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* ==================== الهيدر والقائمة ==================== */
+        header { background-color: rgba(7, 14, 23, 0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .logo h1 { color: var(--gold); font-size: 24px; font-weight: 800; }
+        .logo span { font-size: 12px; color: var(--text-light); display: block; }
+        nav ul { list-style: none; display: flex; gap: 20px; align-items: center; }
+        nav ul li a { text-decoration: none; color: var(--white); font-weight: 600; font-size: 15px; }
+        nav ul li a:hover, nav ul li a.active { color: var(--gold); }
+        
+        /* زر ديسكورد والبروفايل */
+        .btn-discord { 
+            background-color: var(--discord-color); 
+            color: var(--white); 
+            padding: 8px 18px; 
+            border-radius: 5px; 
+            font-weight: 700; 
+            text-decoration: none; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-discord:hover { background-color: #4752C4; }
+
+        .user-profile {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .user-avatar { width: 32px; height: 32px; border-radius: 50%; }
+        .user-name { color: var(--gold); font-weight: 700; font-size: 14px; }
+        .btn-logout { color: #ff4d4d; background: none; border: none; cursor: pointer; font-size: 14px; margin-right: 5px; }
+
+        .hero { height: 100vh; background: radial-gradient(circle at center, var(--secondary-dark) 0%, var(--primary-dark) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .hero-logo { width: 220px; height: 220px; background: url('image.png') no-repeat center; background-size: contain; margin: 0 auto 20px; border-radius: 50%; box-shadow: 0 0 30px rgba(212, 175, 55, 0.25); }
+        .hero h2 { font-size: 42px; color: var(--gold); margin-bottom: 10px; font-weight: 800; }
+        .hero p { font-size: 18px; margin-bottom: 30px; }
+        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark); padding: 10px 24px; border-radius: 4px; font-weight: 800; text-decoration: none; margin: 5px; }
+        .btn-outline { background: transparent; color: var(--white); padding: 10px 24px; border: 2px solid var(--gold); border-radius: 4px; font-weight: 700; text-decoration: none; margin: 5px; }
+        .btn-outline:hover { background: var(--gold); color: var(--primary-dark); }
+        footer { background-color: #04080d; padding: 20px 50px; text-align: center; font-size: 13px; border-top: 1px solid rgba(212,175,55,0.1); }
+    </style>
+</head>
+<body>
+
+    <!-- واجهة التحميل (Loading Screen) -->
+    <div id="loader">
+        <div class="loader-content">
+            <div class="loader-logo-wrapper">
+                <div class="spinner"></div>
+                <div class="loader-logo"></div>
+            </div>
+            <div class="loader-title">Police Media Team</div>
+            <div class="loader-sub">جاري تحضير النظام الإعلامي...</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- هيدر الموقع -->
+    <header>
+        <div class="logo"><h1>PMT</h1><span>فريق الإعلام | LSPD</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">الصفحة الرئيسية</a></li>
+                <li><a href="about.html">من نحن</a></li>
+                <li><a href="tasks.html">مهام الفريق</a></li>
+                <li><a href="apply.html" class="btn-gold">التقديم</a></li>
+                
+                <!-- تسجيل الدخول عبر ديسكورد -->
+                <li id="auth-container">
+                    <button id="login-btn" class="btn-discord" onclick="loginWithDiscord()">
+                        <i class="fa-brands fa-discord"></i> دخول عبر ديسكورد
+                    </button>
+                    <div id="user-profile" class="user-profile">
+                        <img id="user-avatar" class="user-avatar" src="" alt="Avatar">
+                        <span id="user-name" class="user-name"></span>
+                        <button class="btn-logout" onclick="logout()" title="تسجيل الخروج"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- الصفحة الرئيسية -->
+    <section class="hero">
+        <div class="hero-logo"></div> 
+        <h2>فريق الإعلام (PMT)</h2>
+        <p id="welcome-msg">توثيق، إنتاج، وبث كافة التغطيات والأنشطة الإعلامية الخاصة بالإدارة</p>
+        <div>
+            <a href="tasks.html" class="btn-outline">استعراض المهام</a>
+            <a href="apply.html" class="btn-gold">تقديم طلب الانضمام</a>
+        </div>
+    </section>
+
+    <footer><p>&copy; 2026 جميع الحقوق محفوظة لـ فريق الإعلام - LSPD.</p></footer>
+
+    <!-- السكربتات -->
+    <script>
+        // إخفاء شاشة التحميل بعد ثانيتين
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                document.getElementById("loader").classList.add("loader-hidden");
+            }, 2000);
+        });
+
+        // Application ID الخاص بك
+        const CLIENT_ID = '1536788735335604344'; 
+        const REDIRECT_URI = window.location.origin + window.location.pathname;
+
+        function loginWithDiscord() {
+            const discordUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify`;
+            window.location.href = discordUrl;
+        }
+
+        function getAccessToken() {
+            const fragment = new URLSearchParams(window.location.hash.slice(1));
+            return fragment.get('access_token');
+        }
+
+        function fetchUserData(token) {
+            fetch('https://discord.com/api/users/@me', {
+                headers: { authorization: `Bearer ${token}` }
+            })
+            .then(res => res.json())
+            .then(response => {
+                const { username, avatar, id } = response;
+                if (username) {
+                    const userData = {
+                        name: username,
+                        avatarUrl: avatar ? `https://cdn.discordapp.com/avatars/${id}/${avatar}.png` : 'https://cdn.discordapp.com/embed/avatars/0.png'
+                    };
+                    localStorage.setItem('discord_user', JSON.stringify(userData));
+                    showUserProfile(userData);
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            })
+            .catch(console.error);
+        }
+
+        function showUserProfile(user) {
+            document.getElementById('login-btn').style.display = 'none';
+            const profileDiv = document.getElementById('user-profile');
+            profileDiv.style.display = 'flex';
+            document.getElementById('user-avatar').src = user.avatarUrl;
+            document.getElementById('user-name').innerText = user.name;
+            document.getElementById('welcome-msg').innerText = `أهلاً بك يا ${user.name} في نظام فريق الإعلام الموحد!`;
+        }
+
+        function logout() {
+            localStorage.removeItem('discord_user');
+            location.reload();
+        }
+
+        window.onload = () => {
+            const token = getAccessToken();
+            const savedUser = localStorage.getItem('discord_user');
+
+            if (token) {
+                fetchUserData(token);
+            } else if (savedUser) {
+                showUserProfile(JSON.parse(savedUser));
+            }
+        };
+    </script>
+</body>
+</html>

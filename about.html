@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>فريق الإعلام | من نحن</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-dark: #070e17; --secondary-dark: #121f30; --gold: #d4af37; --text-light: #e0e0e0; --white: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background-color: var(--primary-dark); color: var(--text-light); }
+        header { background-color: rgba(7, 14, 23, 0.95); padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; position: fixed; width: 100%; top: 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .logo h1 { color: var(--gold); font-size: 24px; font-weight: 800; }
+        .logo span { font-size: 12px; color: var(--text-light); display: block; }
+        nav ul { list-style: none; display: flex; gap: 30px; align-items: center; }
+        nav ul li a { text-decoration: none; color: var(--white); font-weight: 600; font-size: 15px; }
+        nav ul li a:hover, nav ul li a.active { color: var(--gold); }
+        .btn-gold { background: linear-gradient(to left, #b48e28, #d4af37); color: var(--primary-dark); padding: 8px 22px; border-radius: 4px; font-weight: 800; text-decoration: none; }
+        .page-content { min-height: 100vh; padding: 150px 50px 50px; display: flex; justify-content: center; align-items: center; text-align: center; background: var(--secondary-dark); }
+        .about-box { max-width: 800px; background: rgba(7, 14, 23, 0.6); padding: 40px; border-radius: 8px; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .about-box h2 { color: var(--gold); font-size: 36px; margin-bottom: 20px; }
+        .about-box p { font-size: 18px; line-height: 1.8; }
+        .director { margin-top: 30px; padding-top: 15px; border-top: 1px dashed rgba(212, 175, 55, 0.3); color: #f3d573; font-weight: 700; }
+        footer { background-color: #04080d; padding: 20px 50px; text-align: center; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><h1>PMT</h1><span>فريق الإعلام | LSPD</span></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">الصفحة الرئيسية</a></li>
+                <li><a href="about.html" class="active">من نحن</a></li>
+                <li><a href="tasks.html">مهام الفريق</a></li>
+                <li><a href="apply.html" class="btn-gold">التقديم</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="page-content">
+        <div class="about-box">
+            <h2>من نحن</h2>
+            <p>وحدة الإعلام (PMT) Glendale Me هي وحدة متخصصة تهدف إلى تعزيز التواصل الشفاف والفعال، ونقل الصورة الواقعية والاحترافية لجهود وأعمال شرطة   (LSPD) للمجتمع من خلال الإنتاج المالي والمرئي عالي الجودة.</p>
+            <div class="director">قائد الفريق:  السيد دحوم (Dahum Xx)</div>
+        </div>
+    </div>
+    <footer><p>&copy; 2026 جميع الحقوق محفوظة لـ فريق الإعلام - PMT.</p></footer>
+</body>
+</html>
