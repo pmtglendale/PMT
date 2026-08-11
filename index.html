@@ -22,57 +22,79 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body { background-color: var(--primary-dark); color: var(--text-light); min-height: 100vh; padding-top: 90px; overflow-x: hidden; }
 
-        /* Fullscreen Loading / Lock Screen Overlay */
-        #login-overlay {
+        /* Fullscreen Loading & Lock Screen */
+        #loading-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(7, 14, 23, 0.96);
-            backdrop-filter: blur(15px);
+            background: var(--primary-dark);
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
+            flex-direction: column;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        .login-card {
+        .loader-card {
             background: var(--secondary-dark);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 16px;
             padding: 40px;
             width: 90%;
-            max-width: 420px;
+            max-width: 440px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.1);
-            animation: fadeIn 0.4s ease-in-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 25px rgba(212, 175, 55, 0.15);
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .login-card i.main-icon {
-            font-size: 50px;
+        .loader-card i.main-icon {
+            font-size: 55px;
             color: var(--gold);
             margin-bottom: 15px;
+            animation: pulseGlow 2s infinite ease-in-out;
         }
 
-        .login-card h3 {
+        @keyframes pulseGlow {
+            0% { transform: scale(1); filter: drop-shadow(0 0 2px var(--gold)); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 12px var(--gold)); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--gold)); }
+        }
+
+        .loader-card h3 {
             color: var(--white);
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 8px;
             font-weight: 800;
         }
 
-        .login-card p {
+        .loader-card p {
             font-size: 13px;
             opacity: 0.8;
             margin-bottom: 25px;
             line-height: 1.6;
+        }
+
+        /* Progress Bar Animation */
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--gold), var(--light-blue));
+            border-radius: 10px;
+            transition: width 0.3s ease;
         }
 
         .input-group {
@@ -174,23 +196,29 @@
 </head>
 <body>
 
-    <!-- Lock / Login Screen (واجهة الدخول الكاملة) -->
-    <div id="login-overlay">
-        <div class="login-card">
+    <!-- Fullscreen Loading & Lock Screen (شاشة التحميل والتحقق) -->
+    <div id="loading-screen">
+        <div class="loader-card">
             <i class="fa-solid fa-shield-halved main-icon"></i>
-            <h3>بوابة نظام الإعلام</h3>
-            <p>يرجى تسجيل الدخول بحساب ديسكورد للتحقق من الصلاحيات والوصول للنظام.</p>
-            
-            <div class="input-group">
-                <label>اسم المستخدم في الديسكورد (Discord Username):</label>
-                <input type="text" id="discord-input-name" value="yx8q" placeholder="أدخل اسمك في ديسكورد...">
+            <h3 id="loader-title">بوابة نظام الإعلام الموحد</h3>
+            <p id="loader-desc">جاري التحقق من الصلاحيات وتجهيز ملفات النظام...</p>
+
+            <div class="progress-bar-container" id="progress-container">
+                <div class="progress-bar-fill" id="progress-fill"></div>
             </div>
+            
+            <div id="auth-form-box">
+                <div class="input-group">
+                    <label>اسم المستخدم في الديسكورد (Discord Username):</label>
+                    <input type="text" id="discord-input-name" value="yx8q" placeholder="أدخل اسمك في ديسكورد...">
+                </div>
 
-            <button class="btn-modal-discord" onclick="processLogin()">
-                <i class="fa-brands fa-discord"></i> تسجيل الدخول بحساب ديسكورد
-            </button>
+                <button class="btn-modal-discord" onclick="startLoadingProcess()">
+                    <i class="fa-brands fa-discord"></i> تسجيل الدخول والتحقق
+                </button>
 
-            <span class="guest-link" onclick="closeOverlay()">الدخول كـ زائر (عرض محدود)</span>
+                <span class="guest-link" onclick="hideLoadingScreen()">الدخول كـ زائر (عرض محدود)</span>
+            </div>
         </div>
     </div>
 
@@ -208,12 +236,12 @@
                 <li><a href="tasks.html">مهام الفريق</a></li>
                 <li><a href="apply.html" class="btn-gold">التقديم</a></li>
                 
-                <!-- تبويب لوحة الإدارة (يظهر حصرياً للمالك yx8q) -->
+                <!-- تبويب لوحة الإدارة (حصري لحساب المالك yx8q) -->
                 <li><a href="admin.html" id="admin-tab" style="display: none; color: #00e1ff;"><i class="fa-solid fa-shield-halved"></i> لوحة الإدارة</a></li>
 
-                <!-- منطقة تسجيل الدخول القائمة علوياً -->
+                <!-- منطقة الحساب أعلى القائمة -->
                 <li id="auth-container">
-                    <button id="login-btn-header" class="btn-discord-header" onclick="openOverlay()">
+                    <button id="login-btn-header" class="btn-discord-header" onclick="showLoadingScreen(true)">
                         <i class="fa-brands fa-discord"></i> دخول عبر ديسكورد
                     </button>
                     <div id="user-profile" class="user-profile">
@@ -234,38 +262,66 @@
     </section>
 
     <script>
-        // قائمة المالك والمسؤولين المصرح لهم
         const ADMIN_USERS = ['yx8q']; 
 
-        function openOverlay() {
-            const overlay = document.getElementById('login-overlay');
-            overlay.style.visibility = 'visible';
-            overlay.style.opacity = '1';
+        function showLoadingScreen(manualClick = false) {
+            const loader = document.getElementById('loading-screen');
+            loader.style.visibility = 'visible';
+            loader.style.opacity = '1';
+            
+            if (manualClick) {
+                document.getElementById('auth-form-box').style.display = 'block';
+                document.getElementById('progress-container').style.display = 'none';
+                document.getElementById('loader-title').innerText = 'تسجيل الدخول للنظام';
+                document.getElementById('loader-desc').innerText = 'يرجى كتابة اسم حساب الديسكورد للتسجيل.';
+            }
         }
 
-        function closeOverlay() {
-            const overlay = document.getElementById('login-overlay');
-            overlay.style.opacity = '0';
+        function hideLoadingScreen() {
+            const loader = document.getElementById('loading-screen');
+            loader.style.opacity = '0';
             setTimeout(() => {
-                overlay.style.visibility = 'hidden';
-            }, 500);
+                loader.style.visibility = 'hidden';
+            }, 600);
         }
 
-        function processLogin() {
-            const inputVal = document.getElementById('discord-input-name').value.trim();
-            if (!inputVal) {
-                alert('يرجى كتابة اسم حساب الديسكورد الخاص بك!');
+        function startLoadingProcess() {
+            const inputName = document.getElementById('discord-input-name').value.trim();
+            if (!inputName) {
+                alert('يرجى إدخال اسم مستخدم الديسكورد!');
                 return;
             }
 
-            const userData = {
-                name: inputVal,
-                avatarUrl: 'https://cdn.discordapp.com/embed/avatars/0.png'
-            };
+            // إخفاء النموذج وإظهار شريط اللودنق
+            document.getElementById('auth-form-box').style.display = 'none';
+            document.getElementById('progress-container').style.display = 'block';
+            document.getElementById('loader-title').innerText = 'جاري مزامنة الصلاحيات...';
+            document.getElementById('loader-desc').innerText = `مرحباً ${inputName}، جاري التحقق من قاعدة بيانات المالك والمسؤولين...`;
 
-            localStorage.setItem('discord_user', JSON.stringify(userData));
-            applyUserSession(userData);
-            closeOverlay();
+            const fill = document.getElementById('progress-fill');
+            let width = 0;
+            
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    
+                    const userData = {
+                        name: inputName,
+                        avatarUrl: 'https://cdn.discordapp.com/embed/avatars/0.png'
+                    };
+
+                    localStorage.setItem('discord_user', JSON.stringify(userData));
+                    applyUserSession(userData);
+                    
+                    setTimeout(() => {
+                        hideLoadingScreen();
+                    }, 400);
+
+                } else {
+                    width += 10;
+                    fill.style.width = width + '%';
+                }
+            }, 120);
         }
 
         function logout() {
@@ -285,7 +341,7 @@
                 welcomeElem.innerText = `أهلاً بك يا ${user.name} في نظام فريق الإعلام الموحد!`;
             }
 
-            // إظهار تبويب الإدارة الخاص في حال كأن الاسم هو yx8q
+            // تفعيل تبويب الإدارة لحساب yx8q
             const adminTab = document.getElementById('admin-tab');
             if (adminTab) {
                 if (ADMIN_USERS.includes(user.name.toLowerCase())) {
@@ -296,14 +352,32 @@
             }
         }
 
-        // فحص الجلسة عند التحميل
+        // عند فتح الصفحة
         window.onload = function() {
             const savedUser = localStorage.getItem('discord_user');
             if (savedUser) {
-                applyUserSession(JSON.parse(savedUser));
-                closeOverlay();
+                const user = JSON.parse(savedUser);
+                applyUserSession(user);
+                
+                // شاشة تحميل سريعة للجلسة المحفوظة
+                document.getElementById('auth-form-box').style.display = 'none';
+                document.getElementById('progress-container').style.display = 'block';
+                document.getElementById('loader-title').innerText = 'جاري استعادة الجلسة...';
+                document.getElementById('loader-desc').innerText = `أهلاً بعودتك يا ${user.name}!`;
+
+                let w = 0;
+                const f = document.getElementById('progress-fill');
+                const timer = setInterval(() => {
+                    w += 25;
+                    f.style.width = w + '%';
+                    if (w >= 100) {
+                        clearInterval(timer);
+                        setTimeout(hideLoadingScreen, 300);
+                    }
+                }, 80);
+
             } else {
-                openOverlay();
+                showLoadingScreen(true);
             }
         };
     </script>
